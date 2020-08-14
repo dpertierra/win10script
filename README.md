@@ -1,6 +1,7 @@
 # win10script
 This is the Ultimate Windows 10 Script from a creation from multiple debloat scripts and gists from github. I also added Chocolatey and other tools to the script that I install on every machine.
-One command run: powershell -nop -c "iex(New-Object Net.WebClient).DownloadString('https://git.io/JJgmB')"
+- One command run standard: powershell -nop -c "iex(New-Object Net.WebClient).DownloadString('https://git.io/JJgmB')"
+- One command run gaming: powershell -nop -c "iex(New-Object Net.WebClient).DownloadString('https://git.io/JJ54A')"
 ## My Additions
 
 - Dark Mode
@@ -13,7 +14,8 @@ One command run: powershell -nop -c "iex(New-Object Net.WebClient).DownloadStrin
 ## Modifications
 I encourage people to fork this project and comment out things they don't like! Here is a list of normal things people change:
 - Uninstalling OneDrive (This is on in my script)
-- Installing Adobe, Chocolatey, Notepad++, MPC-HC, and 7-Zip
+- Standard: Installing Chocolatey, Notepad++, MPC-HC, and 7-Zip
+- Gaming: Installing Chocolatey, Notepad++, MPC-HC, Discord Canary, Steam and 7-Zip
 
 Comment any thing you don't want out... Example:
 
