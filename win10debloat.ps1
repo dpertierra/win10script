@@ -31,10 +31,9 @@
 $tweaks = @(
 	### Require administrator privileges ###
 	"RequireAdmin",
-
+	"CreateRestorePoint",
 	### External Program Setup
 	"InstallTitusProgs", #REQUIRED FOR OTHER PROGRAM INSTALLS!
-	"InstallAdobe",
 	"Install7Zip",
 	"InstallNotepadplusplus",
 	"InstallMediaPlayerClassic",
@@ -202,11 +201,6 @@ Function InstallTitusProgs {
 	Start-BitsTransfer -Source "https://raw.githubusercontent.com/ChrisTitusTech/win10script/master/ooshutup10.cfg" -Destination ooshutup10.cfg
 	Start-BitsTransfer -Source "https://dl5.oo-software.com/files/ooshutup10/OOSU10.exe" -Destination OOSU10.exe
 	./OOSU10.exe ooshutup10.cfg /quiet
-}
-
-Function InstallAdobe {
-	Write-Output "Installing Adobe Acrobat Reader"
-	choco install adobereader -y
 }
 
 Function InstallJava {
@@ -2515,6 +2509,12 @@ Function Stop-EdgePDF {
     If (Test-Path $Edge) {
         Set-Item $Edge AppXd4nrz8ff68srnhf9t5a8sbjyar1cr723_ 
     }
+}
+
+Function CreateRestorePoint {
+	Write-Output "Creating Restore Point incase something bad happens"
+	Enable-ComputerRestore -Drive "C:\"
+	Checkpoint-Computer -Description "RestorePoint1" -RestorePointType "MODIFY_SETTINGS"
 }
 
 Function DebloatAll {
