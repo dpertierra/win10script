@@ -2465,7 +2465,7 @@ Function Restart {
 ###########
 
 Function EnableDarkMode {
-  Write-Output "Enabling Dark Mode"
+	Write-Output "Enabling Dark Mode"
 	Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name AppsUseLightTheme -Value 0
 }
 
@@ -2564,7 +2564,6 @@ Function DebloatAll {
         "*Sway*"
         "*Speed Test*"
         "*Dolby*"
-             
         #Optional: Typically not removed but you can if you need to for some reason
         #"*Microsoft.Advertising.Xaml_10.1712.5.0_x64__8wekyb3d8bbwe*"
         #"*Microsoft.Advertising.Xaml_10.1712.5.0_x86__8wekyb3d8bbwe*"
