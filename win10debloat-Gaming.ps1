@@ -214,7 +214,13 @@ Function InstallJava {
 
 Function InstallDiscordCanary {
 	Write-Output "Installing Discord Canary"
-	choco install discord-canary -y
+    $url = "https://discord.com/api/canary/download?platform=win"
+    $outpath = "$PSScriptRoot/DiscordCanarySetup.exe"
+    Invoke-WebRequest -Uri $url -OutFile $outpath
+    $wc = New-Object System.Net.WebClient
+    $wc.DownloadFile($url, $outpath)
+    $args = @("Comma","Separated","Arguments")
+    Start-Process -Filepath "$PSScriptRoot/DiscordCanarySetup.exe" -ArgumentList $args
 }
 
 Function InstallSteam {
