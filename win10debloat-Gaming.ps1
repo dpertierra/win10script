@@ -183,6 +183,12 @@ $tweaks = @(
 	# "DisableIEEnhancedSecurity",  # "EnableIEEnhancedSecurity",
 	# "EnableAudio",                # "DisableAudio",
 
+    ### Enable Clipboard History ###
+    "EnableClipboardHistory",
+
+    ### Disable Clipboard History ###
+    #"DisableClipboardHistory",
+
 	### Unpinning ###
 	"UnpinStartMenuTiles",
 	#"UnpinTaskbarIcons",
@@ -878,6 +884,15 @@ Function DisableMeltdownCompatFlag {
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\QualityCompat" -Name "cadca5fe-87d3-4b96-b7fb-a231484277cc" -ErrorAction SilentlyContinue
 }
 
+Function EnableClipboardHistory{
+	Write-Output "Enabling Clipboard History"
+    Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "AllowClipboardHistory" -ErrorAction SilentlyContinue
+}
+
+Function DisableClipboardHistory{
+	Write-Output "Disabling Clipboard History"
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "AllowClipboardHistory" -Type DWord -Value 0
+}
 
 
 ##########

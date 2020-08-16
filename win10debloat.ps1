@@ -79,7 +79,7 @@ $tweaks = @(
 	# "EnableCIMemoryIntegrity",    # "DisableCIMemoryIntegrity",
 	#"DisableScriptHost",            # "EnableScriptHost",
 	#"EnableDotNetStrongCrypto",     # "DisableDotNetStrongCrypto",
-	"DisableMeltdownCompatFlag", # "EnableMeltdownCompatFlag"    
+	"DisableMeltdownCompatFlag", # "EnableMeltdownCompatFlag"  
 
 	### Service Tweaks ###
 	"DisableUpdateMSRT",          # "EnableUpdateMSRT",
@@ -182,6 +182,12 @@ $tweaks = @(
 	### Unpinning ###
 	"UnpinStartMenuTiles",
 	#"UnpinTaskbarIcons",
+
+    ### Enable Clipboard History ###
+    "EnableClipboardHistory",
+
+    ### Disable Clipboard History ###
+    #"DisableClipboardHistory",
 
 	### Auxiliary Functions ###
 	"WaitForKey"
@@ -371,6 +377,7 @@ Function EnableActivityHistory {
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "PublishUserActivities" -ErrorAction SilentlyContinue
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "UploadUserActivities" -ErrorAction SilentlyContinue
 }
+
 
 # Disable Background application access - ie. if apps can download or update when they aren't used - Cortana is excluded as its inclusion breaks start menu search
 Function DisableBackgroundApps {
@@ -847,7 +854,15 @@ Function DisableMeltdownCompatFlag {
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\QualityCompat" -Name "cadca5fe-87d3-4b96-b7fb-a231484277cc" -ErrorAction SilentlyContinue
 }
 
+Function EnableClipboardHistory{
+	Write-Output "Enabling Clipboard History"
+    Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "AllowClipboardHistory" -ErrorAction SilentlyContinue
+}
 
+Function DisableClipboardHistory{
+	Write-Output "Disabling Clipboard History"
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "AllowClipboardHistory" -Type DWord -Value 0
+}
 
 ##########
 # Service Tweaks
