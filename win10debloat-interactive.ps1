@@ -38,7 +38,17 @@ $1 = New-Object System.Management.Automation.Host.ChoiceDescription "&Libreoffic
 $2 = New-Object System.Management.Automation.Host.ChoiceDescription "&WPS Office", "WPS Office"
 $3 = New-Object System.Management.Automation.Host.ChoiceDescription "&Only Office", "Only Office"
 $options = [System.Management.Automation.Host.ChoiceDescription[]]($0, $1,$2,$3)
-$officeSuite=$host.UI.PromptForChoice($title, $message, $options, 1)
+$officeSuite=$host.UI.PromptForChoice($message, $options, 1)
+
+
+$message = "Choose your internet browser"
+$0 = New-Object System.Management.Automation.Host.ChoiceDescription "&No Internet Browser", "No Internet Browser"
+$1 = New-Object System.Management.Automation.Host.ChoiceDescription "&Brave Browser", "Brave Browser"
+$2 = New-Object System.Management.Automation.Host.ChoiceDescription "&Vivaldi", "Vivaldi"
+$3 = New-Object System.Management.Automation.Host.ChoiceDescription "&Mozilla Firefox", "Mozilla Firefox"
+$4 = New-Object System.Management.Automation.Host.ChoiceDescription "&Google Chrome", "Google Chrome"
+$options = [System.Management.Automation.Host.ChoiceDescription[]]($0,$1,$2,$3,$4)
+$browser=$host.UI.PromptForChoice($message, $options, 1)
 
 
 
@@ -53,6 +63,7 @@ $tweaks = @(
 	"InstallNotepadplusplus",
 	"InstallMediaPlayerClassic",
     "InstallOfficeSuite",
+    "InstallInternetBrowser",
 
 	### Windows Apps
 	"DebloatAll",
@@ -263,6 +274,18 @@ Function InstallOfficeSuite {
         $wc.DownloadFile($url, $outpath)
         $args = @("Comma","Separated","Arguments")
         Start-Process -Filepath "$PSScriptRoot/onlyOfficeInstaller.exe" -ArgumentList $args}
+    }
+}
+
+Function InstallInternetBrowser{
+    if($officeSuite -ne 0){
+	    Write-Output "Installing the chosen Internet Browser"
+    }
+    switch ($officeSuite){
+        1{choco install brave -y}
+        2{choco install vivaldi -y}
+        3{choco install firefox -y}
+        4{choco install googlechrome -y}
     }
 }
 
