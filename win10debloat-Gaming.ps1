@@ -272,18 +272,26 @@ Function InstallJava {
 Function InstallLegendary {
 	Write-Output "Installing Legendary, A free and open-source Epic Games Launcher alternative"
     Write-Output "Check Legendary at https://github.com/derrod/legendary"
-
-    $repo = "/derrod/legendary"
-    $file = "legendary.exe"
-    $version = '0.0.19'
     $path = 'C:\Program Files\Legendary'
-    $url = "https://github.com$repo/releases/download/$version/$filename"
+
+
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
+    $repo = "derrod/legendary"
+    $file = "legendary.exe"
+
+    $releases = "https://api.github.com/repos/$repo/releases"
+
+    $tag = (Invoke-WebRequest -Uri $releases -UseBasicParsing | ConvertFrom-Json)[0].tag_name
+    $url = "https://github.com/$repo/releases/download/$tag/$file"
+
     New-Item -Path $path -ItemType Directory
     $outpath = "$path\legendary.exe"
     Invoke-WebRequest -Uri $url -OutFile $outpath
     $wc = New-Object System.Net.WebClient
     $wc.DownloadFile($url, $outpath)
 
+    Write-Output "Adding Legendary to Enviroment Variable Path"
     $oldPath = (Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH).path
     $newPath = "$oldPath;$path\"
     Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH -Value $newPath
