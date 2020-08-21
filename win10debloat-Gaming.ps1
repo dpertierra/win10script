@@ -27,6 +27,9 @@
 #	- Renable Windows Defender
 #
 ##########
+
+$playnite = Read-Host 'Do you want to install PlayNite? Playnite is an open source video game library manager with one simple goal: To provide a unified interface for all of your games. Y/N'
+
 # Default preset
 $tweaks = @(
 	### Require administrator privileges ###
@@ -41,7 +44,6 @@ $tweaks = @(
 	"InstallNotepadplusplus",
 	"InstallMediaPlayerClassic",
     "InstallGraphicsCardApp",
-    "InstallPython" #REQUIRED FOR LEGENDARY
     "InstallLegendary",
 
 	### Windows Apps
@@ -264,14 +266,10 @@ Function InstallGraphicsCardApp{
     }
 }
 
-Function InstallJava {
-	Write-Output "Installing Python"
-	choco install python -y
-}
 
 Function InstallLegendary {
 	Write-Output "Installing Legendary, A free and open-source Epic Games Launcher alternative"
-    Write-Output "Check Legendary at https://github.com/derrod/legendary"
+    Write-Output "Check Legendary at https://github.com/derrod/legendary for usage instructions"
     $path = 'C:\Program Files\Legendary'
 
 
@@ -296,6 +294,29 @@ Function InstallLegendary {
     $newPath = "$oldPath;$path\"
     Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH -Value $newPath
 }
+
+Function InstallPlayNite{
+    if(($playnite -eq "Y") -or ($playnite -eq "y")){
+	    Write-Output "Installing Playnite"
+        [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
+        $repo = "JosefNemec/Playnite"
+        $releases = "https://api.github.com/repos/$repo/releases"
+        $tag = (Invoke-WebRequest -Uri $releases -UseBasicParsing | ConvertFrom-Json)[0].tag_name
+        $filename = ((Invoke-WebRequest -Uri $releases -UseBasicParsing | ConvertFrom-Json)[0].assets | Where-Object name -Like '*.exe').name
+        $url = "https://github.com/$repo/releases/download/$tag/$filename"
+
+        $outpath = "$PSScriptRoot/$filename"
+        Invoke-WebRequest -Uri $url -OutFile $outpath
+        $wc = New-Object System.Net.WebClient
+        $wc.DownloadFile($url, $outpath)
+        $args = @("Comma","Separated","Arguments")
+        Start-Process -Filepath "$PSScriptRoot/$filename" -ArgumentList $args
+   }
+}
+
+
+
 
 ##########
 # Privacy Tweaks

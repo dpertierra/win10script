@@ -37,7 +37,8 @@ $0 = New-Object System.Management.Automation.Host.ChoiceDescription "&No Office 
 $1 = New-Object System.Management.Automation.Host.ChoiceDescription "&Libreoffice", "Libreoffice"
 $2 = New-Object System.Management.Automation.Host.ChoiceDescription "&WPS Office", "WPS Office"
 $3 = New-Object System.Management.Automation.Host.ChoiceDescription "&Only Office", "Only Office"
-$options = [System.Management.Automation.Host.ChoiceDescription[]]($0, $1,$2,$3)
+$4 = New-Object System.Management.Automation.Host.ChoiceDescription "&Free Office", "Free Office"
+$options = [System.Management.Automation.Host.ChoiceDescription[]]($0, $1,$2,$4)
 $officeSuite=$host.UI.PromptForChoice($message, $options, 1)
 
 
@@ -64,6 +65,7 @@ $tweaks = @(
 	"InstallMediaPlayerClassic",
     "InstallOfficeSuite",
     "InstallInternetBrowser",
+    "InstallJava",
 
 	### Windows Apps
 	"DebloatAll",
@@ -266,22 +268,26 @@ Function InstallOfficeSuite {
     {
         1{choco install libreoffice-fresh -y}
         2{choco install wps-office-free -y}
-        3{
-        $url = "https://download.onlyoffice.com/install/desktop/editors/windows/distrib/onlyoffice/DesktopEditors_x64.exe"
-        $outpath = "$PSScriptRoot/onlyOfficeInstaller.exe"
-        Invoke-WebRequest -Uri $url -OutFile $outpath
-        $wc = New-Object System.Net.WebClient
-        $wc.DownloadFile($url, $outpath)
-        $args = @("Comma","Separated","Arguments")
-        Start-Process -Filepath "$PSScriptRoot/onlyOfficeInstaller.exe" -ArgumentList $args}
+        3{choco install onlyoffice -y}
+        4{
+            Write-Output "Installing Free Office"
+            $url = "https://www.freeoffice.com/download.php?filename=https://www.softmaker.net/down/freeoffice2018.msi"
+            $outpath = "$PSScriptRoot/FreeOffice.exe"
+            Invoke-WebRequest -Uri $url -OutFile $outpath
+            $wc = New-Object System.Net.WebClient
+            $wc.DownloadFile($url, $outpath)
+            $args = @("Comma","Separated","Arguments")
+            Start-Process -Filepath "$PSScriptRoot/FreeOffice.exe" -ArgumentList $args
+        
+        }
     }
 }
 
 Function InstallInternetBrowser{
-    if($officeSuite -ne 0){
+    if($browser -ne 0){
 	    Write-Output "Installing the chosen Internet Browser"
     }
-    switch ($officeSuite){
+    switch ($browser){
         1{choco install brave -y}
         2{choco install vivaldi -y}
         3{choco install firefox -y}
