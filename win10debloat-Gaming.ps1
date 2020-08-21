@@ -40,7 +40,9 @@ $tweaks = @(
 	"Install Java",
 	"InstallNotepadplusplus",
 	"InstallMediaPlayerClassic",
-    "InstallGraphicsCardApp"
+    "InstallGraphicsCardApp",
+    "InstallPython" #REQUIRED FOR LEGENDARY
+    "InstallLegendary",
 
 	### Windows Apps
 	"DebloatAll",
@@ -229,6 +231,8 @@ Function InstallDiscordCanary {
     Start-Process -Filepath "$PSScriptRoot/DiscordCanarySetup.exe" -ArgumentList $args
 }
 
+
+
 Function InstallSteam {
 	Write-Output "Installing Discord Canary"
 	choco install steam -y
@@ -258,6 +262,31 @@ Function InstallGraphicsCardApp{
     if ($graphicsName -like "*Radeon*"){
         $LocalTempDir = $env:TEMP;$AdrenalinInstaller = "AdrenalinInstaller.exe";(new-object System.Net.WebClient).DownloadFile('https://drivers.amd.com/drivers/beta/Win10-Radeon-Software-Adrenalin-2020-Edition-20.7.2-July14.exe', "$LocalTempDir\$AdrenalinInstaller"); & "$LocalTempDir\$AdrenalinInstaller" /silent /install; $Process2Monitor = "AdrenalinInstaller"; Do { $ProcessesFound = Get-Process | ?{$Process2Monitor -contains $_.Name} | Select-Object -ExpandProperty Name; If ($ProcessesFound) { "Still running: $($ProcessesFound -join ', ')" | Write-Host; Start-Sleep -Seconds 2 } else { rm "$LocalTempDir\$AdrenalinInstaller" -ErrorAction SilentlyContinue -Verbose } } Until (!$ProcessesFound)
     }
+}
+
+Function InstallJava {
+	Write-Output "Installing Python"
+	choco install python -y
+}
+
+Function InstallLegendary {
+	Write-Output "Installing Legendary, A free and open-source Epic Games Launcher alternative"
+    Write-Output "Check Legendary at https://github.com/derrod/legendary"
+
+    $repo = "/derrod/legendary"
+    $file = "legendary.exe"
+    $version = '0.0.19'
+    $path = 'C:\Program Files\Legendary'
+    $url = "https://github.com$repo/releases/download/$version/$filename"
+    New-Item -Path $path -ItemType Directory
+    $outpath = "$path\legendary.exe"
+    Invoke-WebRequest -Uri $url -OutFile $outpath
+    $wc = New-Object System.Net.WebClient
+    $wc.DownloadFile($url, $outpath)
+
+    $oldPath = (Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH).path
+    $newPath = "$oldPath;$path\"
+    Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH -Value $newPath
 }
 
 ##########
