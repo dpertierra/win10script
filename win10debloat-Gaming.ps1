@@ -40,7 +40,7 @@ $tweaks = @(
 	"Install7Zip",
 	"InstallDiscordCanary",
 	"InstallSteam",
-	"Install Java",
+	"InstallJava",
 	"InstallNotepadplusplus",
 	"InstallMediaPlayerClassic",
     "InstallGraphicsCardApp",
