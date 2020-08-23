@@ -225,13 +225,13 @@ Function InstallJava {
 
 Function InstallDiscordCanary {
 	Write-Output "Installing Discord Canary"
-    $url = "https://discord.com/api/canary/download?platform=win"
-    $outpath = "$PSScriptRoot/DiscordCanarySetup.exe"
+    $url = "https://discord.com/api/download/canary?platform=win"
+    $outpath = "$env:USERPROFILE\Downloads\DiscordCanarySetup.exe"
     Invoke-WebRequest -Uri $url -OutFile $outpath
     $wc = New-Object System.Net.WebClient
     $wc.DownloadFile($url, $outpath)
     $args = @("Comma","Separated","Arguments")
-    Start-Process -Filepath "$PSScriptRoot/DiscordCanarySetup.exe" -ArgumentList $args
+    Start-Process -Filepath "$env:USERPROFILE\Downloads\DiscordCanarySetup.exe" -ArgumentList $args
 }
 
 
@@ -307,12 +307,12 @@ Function InstallPlaynite{
         $filename = ((Invoke-WebRequest -Uri $releases -UseBasicParsing | ConvertFrom-Json)[0].assets | Where-Object name -Like '*.exe').name
         $url = "https://github.com/$repo/releases/download/$tag/$filename"
 
-        $outpath = "$PSScriptRoot/$filename"
+        $outpath = "$env:USERPROFILE\Downloads\$filename"
         Invoke-WebRequest -Uri $url -OutFile $outpath
         $wc = New-Object System.Net.WebClient
         $wc.DownloadFile($url, $outpath)
         $args = @("Comma","Separated","Arguments")
-        Start-Process -Filepath "$PSScriptRoot/$filename" -ArgumentList $args
+        Start-Process -Filepath "$env:USERPROFILE\Downloads\$filename" -ArgumentList $args
    }
 }
 
