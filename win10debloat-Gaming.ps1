@@ -237,7 +237,7 @@ Function InstallDiscordCanary {
 
 
 Function InstallSteam {
-	Write-Output "Installing Discord Canary"
+	Write-Output "Installing Steam"
 	choco install steam -y
 }
 
