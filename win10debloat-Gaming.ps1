@@ -296,7 +296,7 @@ Function InstallLegendary {
     Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH -Value $newPath
 }
 
-Function InstallPlayNite{
+Function InstallPlaynite{
     if(($playnite -eq "Y") -or ($playnite -eq "y")){
 	    Write-Output "Installing Playnite"
         [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
