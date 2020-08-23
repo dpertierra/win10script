@@ -45,6 +45,7 @@ $tweaks = @(
 	"InstallMediaPlayerClassic",
     "InstallGraphicsCardApp",
     "InstallLegendary",
+    "InstallPlaynite",
 
 	### Windows Apps
 	"DebloatAll",
