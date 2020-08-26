@@ -6,6 +6,14 @@ This is the Ultimate Windows 10 Script from a creation from multiple debloat scr
 	powershell -nop -c "iex(New-Object Net.WebClient).DownloadString('https://git.io/JJ54A')"
 - One command run interactive: 
 	powershell -nop -c "iex(New-Object Net.WebClient).DownloadString('https://git.io/JJjTa')"
+	
+## Run Instructions
+   1. Right click on the windows logo
+   2. Click on Powershell (Administrator)
+   3. Copy the one command run for the script you want
+   4. Paste that command in the powershell window
+   5. Press enter
+   
 ## ChrisTitusTech Additions
 
 - Dark Mode
