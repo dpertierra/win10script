@@ -30,608 +30,629 @@
 
 #Save Interactive options
 $arrayApps = [System.Collections.ArrayList]::new()
-Function FormUnnecessaryApps{
-    [void] [System.Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms")
-    [void] [System.Reflection.Assembly]::LoadWithPartialName("System.Drawing")
+Function FormUnnecessaryApps {
+	[void] [System.Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms")
+	[void] [System.Reflection.Assembly]::LoadWithPartialName("System.Drawing")
     
-    # Set the size of your form
-    $Form = New-Object System.Windows.Forms.Form
-    $Form.width = 700
-    $Form.height = 900
-    $Form.Text = "Deselect the Unnecessary Windows 10 AppX Apps you want do NOT want to uninstall."
+	# Set the size of your form
+	$Form = New-Object System.Windows.Forms.Form
+	$Form.width = 700
+	$Form.height = 900
+	$Form.Text = "Deselect the Unnecessary Windows 10 AppX Apps you want do NOT want to uninstall."
  
-    # Set the font of the text to be used within the form
-    $Font = New-Object System.Drawing.Font("Times New Roman",12)
-    $Form.Font = $Font
+	# Set the font of the text to be used within the form
+	$Font = New-Object System.Drawing.Font("Times New Roman", 12)
+	$Form.Font = $Font
  
-    # Bing Apps Checkbox
-    $bingApps = new-object System.Windows.Forms.checkbox
-    $bingApps.Location = new-object System.Drawing.Size(30,15)
-    $bingApps.Size = new-object System.Drawing.Size(250,50)
-    $bingApps.Text = "Bing Apps"
-    $bingApps.Checked = $true
-    $Form.Controls.Add($bingApps)  
+	# Bing Apps Checkbox
+	$bingApps = new-object System.Windows.Forms.checkbox
+	$bingApps.Location = new-object System.Drawing.Size(30, 15)
+	$bingApps.Size = new-object System.Drawing.Size(250, 50)
+	$bingApps.Text = "Bing Apps"
+	$bingApps.Checked = $true
+	$Form.Controls.Add($bingApps)  
 
-    # Get Help Checkbox
-    $getHelp = new-object System.Windows.Forms.checkbox
-    $getHelp.Location = new-object System.Drawing.Size(400,15)
-    $getHelp.Size = new-object System.Drawing.Size(250,50)
-    $getHelp.Text = "Get Help"
-    $getHelp.Checked = $true
-    $Form.Controls.Add($getHelp)  
+	# Get Help Checkbox
+	$getHelp = new-object System.Windows.Forms.checkbox
+	$getHelp.Location = new-object System.Drawing.Size(400, 15)
+	$getHelp.Size = new-object System.Drawing.Size(250, 50)
+	$getHelp.Text = "Get Help"
+	$getHelp.Checked = $true
+	$Form.Controls.Add($getHelp)  
 
-    # Get Started checkbox 
-    $Getstarted = new-object System.Windows.Forms.checkbox
-    $Getstarted.Location = new-object System.Drawing.Size(30,65)
-    $Getstarted.Size = new-object System.Drawing.Size(250,50)
-    $Getstarted.Text = "Get started"
-    $Getstarted.Checked = $true
-    $Form.Controls.Add($Getstarted) 
+	# Get Started checkbox 
+	$Getstarted = new-object System.Windows.Forms.checkbox
+	$Getstarted.Location = new-object System.Drawing.Size(30, 65)
+	$Getstarted.Size = new-object System.Drawing.Size(250, 50)
+	$Getstarted.Text = "Get started"
+	$Getstarted.Checked = $true
+	$Form.Controls.Add($Getstarted) 
     
-    # Messaging checkbox 
-    $Messaging = new-object System.Windows.Forms.checkbox
-    $Messaging.Location = new-object System.Drawing.Size(400,65)
-    $Messaging.Size = new-object System.Drawing.Size(250,50)
-    $Messaging.Text = "Messaging"
-    $Messaging.Checked = $true
-    $Form.Controls.Add($Messaging)  
+	# Messaging checkbox 
+	$Messaging = new-object System.Windows.Forms.checkbox
+	$Messaging.Location = new-object System.Drawing.Size(400, 65)
+	$Messaging.Size = new-object System.Drawing.Size(250, 50)
+	$Messaging.Text = "Messaging"
+	$Messaging.Checked = $true
+	$Form.Controls.Add($Messaging)  
 
-    # Messaging checkbox 
-    $Microsoft3DViewer = new-object System.Windows.Forms.checkbox
-    $Microsoft3DViewer.Location = new-object System.Drawing.Size(30,115)
-    $Microsoft3DViewer.Size = new-object System.Drawing.Size(250,50)
-    $Microsoft3DViewer.Text = "Microsoft3DViewer"
-    $Microsoft3DViewer.Checked = $true
-    $Form.Controls.Add($Microsoft3DViewer)  
+	# Messaging checkbox 
+	$Microsoft3DViewer = new-object System.Windows.Forms.checkbox
+	$Microsoft3DViewer.Location = new-object System.Drawing.Size(30, 115)
+	$Microsoft3DViewer.Size = new-object System.Drawing.Size(250, 50)
+	$Microsoft3DViewer.Text = "Microsoft3DViewer"
+	$Microsoft3DViewer.Checked = $true
+	$Form.Controls.Add($Microsoft3DViewer)  
  
-    # MicrosoftSolitaireCollection checkbox 
-    $MicrosoftSolitaireCollection = new-object System.Windows.Forms.checkbox
-    $MicrosoftSolitaireCollection.Location = new-object System.Drawing.Size(400,115)
-    $MicrosoftSolitaireCollection.Size = new-object System.Drawing.Size(250,50)
-    $MicrosoftSolitaireCollection.Text = "Microsoft Solitaire Collection"
-    $MicrosoftSolitaireCollection.Checked = $true
-    $Form.Controls.Add($MicrosoftSolitaireCollection)  
+	# MicrosoftSolitaireCollection checkbox 
+	$MicrosoftSolitaireCollection = new-object System.Windows.Forms.checkbox
+	$MicrosoftSolitaireCollection.Location = new-object System.Drawing.Size(400, 115)
+	$MicrosoftSolitaireCollection.Size = new-object System.Drawing.Size(250, 50)
+	$MicrosoftSolitaireCollection.Text = "Microsoft Solitaire Collection"
+	$MicrosoftSolitaireCollection.Checked = $true
+	$Form.Controls.Add($MicrosoftSolitaireCollection)  
 
-    # NetworkSpeedTest checkbox 
-    $NetworkSpeedTest = new-object System.Windows.Forms.checkbox
-    $NetworkSpeedTest.Location = new-object System.Drawing.Size(30,165)
-    $NetworkSpeedTest.Size = new-object System.Drawing.Size(250,50)
-    $NetworkSpeedTest.Text = "Network Speed Test"
-    $NetworkSpeedTest.Checked = $true
-    $Form.Controls.Add($NetworkSpeedTest)  
+	# NetworkSpeedTest checkbox 
+	$NetworkSpeedTest = new-object System.Windows.Forms.checkbox
+	$NetworkSpeedTest.Location = new-object System.Drawing.Size(30, 165)
+	$NetworkSpeedTest.Size = new-object System.Drawing.Size(250, 50)
+	$NetworkSpeedTest.Text = "Network Speed Test"
+	$NetworkSpeedTest.Checked = $true
+	$Form.Controls.Add($NetworkSpeedTest)  
 
-    # Messaging checkbox 
-    $News = new-object System.Windows.Forms.checkbox
-    $News.Location = new-object System.Drawing.Size(400,165)
-    $News.Size = new-object System.Drawing.Size(250,50)
-    $News.Text = "News"
-    $News.Checked = $true
-    $Form.Controls.Add($News)  
+	# Messaging checkbox 
+	$News = new-object System.Windows.Forms.checkbox
+	$News.Location = new-object System.Drawing.Size(400, 165)
+	$News.Size = new-object System.Drawing.Size(250, 50)
+	$News.Text = "News"
+	$News.Checked = $true
+	$Form.Controls.Add($News)  
 
-    # Lens checkbox 
-    $Lens = new-object System.Windows.Forms.checkbox
-    $Lens.Location = new-object System.Drawing.Size(30,215)
-    $Lens.Size = new-object System.Drawing.Size(250,50)
-    $Lens.Text = "Lens"
-    $Lens.Checked = $true
-    $Form.Controls.Add($Lens)  
+	# Lens checkbox 
+	$Lens = new-object System.Windows.Forms.checkbox
+	$Lens.Location = new-object System.Drawing.Size(30, 215)
+	$Lens.Size = new-object System.Drawing.Size(250, 50)
+	$Lens.Text = "Lens"
+	$Lens.Checked = $true
+	$Form.Controls.Add($Lens)  
 
-    # Sway checkbox 
-    $Sway = new-object System.Windows.Forms.checkbox
-    $Sway.Location = new-object System.Drawing.Size(400,215)
-    $Sway.Size = new-object System.Drawing.Size(250,50)
-    $Sway.Text = "Sway"
-    $Sway.Checked = $true
-    $Form.Controls.Add($Sway)  
+	# Sway checkbox 
+	$Sway = new-object System.Windows.Forms.checkbox
+	$Sway.Location = new-object System.Drawing.Size(400, 215)
+	$Sway.Size = new-object System.Drawing.Size(250, 50)
+	$Sway.Text = "Sway"
+	$Sway.Checked = $true
+	$Form.Controls.Add($Sway)  
 
-    # OneConnect checkbox 
-    $OneConnect = new-object System.Windows.Forms.checkbox
-    $OneConnect.Location = new-object System.Drawing.Size(30,265)
-    $OneConnect.Size = new-object System.Drawing.Size(250,50)
-    $OneConnect.Text = "One Connect"
-    $OneConnect.Checked = $true
-    $Form.Controls.Add($OneConnect)  
+	# OneConnect checkbox 
+	$OneConnect = new-object System.Windows.Forms.checkbox
+	$OneConnect.Location = new-object System.Drawing.Size(30, 265)
+	$OneConnect.Size = new-object System.Drawing.Size(250, 50)
+	$OneConnect.Text = "One Connect"
+	$OneConnect.Checked = $true
+	$Form.Controls.Add($OneConnect)  
     
-    # People checkbox 
-    $People = new-object System.Windows.Forms.checkbox
-    $People.Location = new-object System.Drawing.Size(400,265)
-    $People.Size = new-object System.Drawing.Size(250,50)
-    $People.Text = "People"
-    $People.Checked = $true
-    $Form.Controls.Add($People)  
+	# People checkbox 
+	$People = new-object System.Windows.Forms.checkbox
+	$People.Location = new-object System.Drawing.Size(400, 265)
+	$People.Size = new-object System.Drawing.Size(250, 50)
+	$People.Text = "People"
+	$People.Checked = $true
+	$Form.Controls.Add($People)  
 
-    # Print3D checkbox 
-    $Print3D = new-object System.Windows.Forms.checkbox
-    $Print3D.Location = new-object System.Drawing.Size(30,315)
-    $Print3D.Size = new-object System.Drawing.Size(250,50)
-    $Print3D.Text = "Print3D"
-    $Print3D.Checked = $true
-    $Form.Controls.Add($Print3D)  
+	# Print3D checkbox 
+	$Print3D = new-object System.Windows.Forms.checkbox
+	$Print3D.Location = new-object System.Drawing.Size(30, 315)
+	$Print3D.Size = new-object System.Drawing.Size(250, 50)
+	$Print3D.Text = "Print3D"
+	$Print3D.Checked = $true
+	$Form.Controls.Add($Print3D)  
     
-    # SkypeApp checkbox 
-    $SkypeApp = new-object System.Windows.Forms.checkbox
-    $SkypeApp.Location = new-object System.Drawing.Size(400,315)
-    $SkypeApp.Size = new-object System.Drawing.Size(250,50)
-    $SkypeApp.Text = "SkypeApp"
-    $SkypeApp.Checked = $true
-    $Form.Controls.Add($SkypeApp)  
+	# SkypeApp checkbox 
+	$SkypeApp = new-object System.Windows.Forms.checkbox
+	$SkypeApp.Location = new-object System.Drawing.Size(400, 315)
+	$SkypeApp.Size = new-object System.Drawing.Size(250, 50)
+	$SkypeApp.Text = "SkypeApp"
+	$SkypeApp.Checked = $true
+	$Form.Controls.Add($SkypeApp)  
 
-    # StorePurchaseApp checkbox 
-    $StorePurchaseApp = new-object System.Windows.Forms.checkbox
-    $StorePurchaseApp.Location = new-object System.Drawing.Size(30,365)
-    $StorePurchaseApp.Size = new-object System.Drawing.Size(250,50)
-    $StorePurchaseApp.Text = "Store Purchase App"
-    $StorePurchaseApp.Checked = $true
-    $Form.Controls.Add($StorePurchaseApp)  
+	# StorePurchaseApp checkbox 
+	$StorePurchaseApp = new-object System.Windows.Forms.checkbox
+	$StorePurchaseApp.Location = new-object System.Drawing.Size(30, 365)
+	$StorePurchaseApp.Size = new-object System.Drawing.Size(250, 50)
+	$StorePurchaseApp.Text = "Store Purchase App"
+	$StorePurchaseApp.Checked = $true
+	$Form.Controls.Add($StorePurchaseApp)  
     
-    # Whiteboard checkbox 
-    $Whiteboard = new-object System.Windows.Forms.checkbox
-    $Whiteboard.Location = new-object System.Drawing.Size(400,365)
-    $Whiteboard.Size = new-object System.Drawing.Size(250,50)
-    $Whiteboard.Text = "Whiteboard"
-    $Whiteboard.Checked = $true
-    $Form.Controls.Add($Whiteboard)
+	# Whiteboard checkbox 
+	$Whiteboard = new-object System.Windows.Forms.checkbox
+	$Whiteboard.Location = new-object System.Drawing.Size(400, 365)
+	$Whiteboard.Size = new-object System.Drawing.Size(250, 50)
+	$Whiteboard.Text = "Whiteboard"
+	$Whiteboard.Checked = $true
+	$Form.Controls.Add($Whiteboard)
     
-    # WindowsAlarms checkbox 
-    $WindowsAlarms = new-object System.Windows.Forms.checkbox
-    $WindowsAlarms.Location = new-object System.Drawing.Size(30,415)
-    $WindowsAlarms.Size = new-object System.Drawing.Size(250,50)
-    $WindowsAlarms.Text = "WindowsAlarms"
-    $WindowsAlarms.Checked = $true
-    $Form.Controls.Add($WindowsAlarms)  
+	# WindowsAlarms checkbox 
+	$WindowsAlarms = new-object System.Windows.Forms.checkbox
+	$WindowsAlarms.Location = new-object System.Drawing.Size(30, 415)
+	$WindowsAlarms.Size = new-object System.Drawing.Size(250, 50)
+	$WindowsAlarms.Text = "WindowsAlarms"
+	$WindowsAlarms.Checked = $true
+	$Form.Controls.Add($WindowsAlarms)  
     
-    # windowscommunicationsapps checkbox 
-    $windowscommunicationsapps = new-object System.Windows.Forms.checkbox
-    $windowscommunicationsapps.Location = new-object System.Drawing.Size(400,415)
-    $windowscommunicationsapps.Size = new-object System.Drawing.Size(250,50)
-    $windowscommunicationsapps.Text = "Windows Communications Apps"
-    $windowscommunicationsapps.Checked = $true
-    $Form.Controls.Add($windowscommunicationsapps)  
+	# windowscommunicationsapps checkbox 
+	$windowscommunicationsapps = new-object System.Windows.Forms.checkbox
+	$windowscommunicationsapps.Location = new-object System.Drawing.Size(400, 415)
+	$windowscommunicationsapps.Size = new-object System.Drawing.Size(250, 50)
+	$windowscommunicationsapps.Text = "Windows Communications Apps"
+	$windowscommunicationsapps.Checked = $true
+	$Form.Controls.Add($windowscommunicationsapps)  
 
-    # WindowsFeedbackHub checkbox 
-    $WindowsFeedbackHub = new-object System.Windows.Forms.checkbox
-    $WindowsFeedbackHub.Location = new-object System.Drawing.Size(30,465)
-    $WindowsFeedbackHub.Size = new-object System.Drawing.Size(250,50)
-    $WindowsFeedbackHub.Text = "Windows Feedback Hub"
-    $WindowsFeedbackHub.Checked = $true
-    $Form.Controls.Add($WindowsFeedbackHub)  
+	# WindowsFeedbackHub checkbox 
+	$WindowsFeedbackHub = new-object System.Windows.Forms.checkbox
+	$WindowsFeedbackHub.Location = new-object System.Drawing.Size(30, 465)
+	$WindowsFeedbackHub.Size = new-object System.Drawing.Size(250, 50)
+	$WindowsFeedbackHub.Text = "Windows Feedback Hub"
+	$WindowsFeedbackHub.Checked = $true
+	$Form.Controls.Add($WindowsFeedbackHub)  
     
-    # WindowsMaps checkbox 
-    $WindowsMaps = new-object System.Windows.Forms.checkbox
-    $WindowsMaps.Location = new-object System.Drawing.Size(400,465)
-    $WindowsMaps.Size = new-object System.Drawing.Size(250,50)
-    $WindowsMaps.Text = "Windows Maps"
-    $WindowsMaps.Checked = $true
-    $Form.Controls.Add($WindowsMaps)  
+	# WindowsMaps checkbox 
+	$WindowsMaps = new-object System.Windows.Forms.checkbox
+	$WindowsMaps.Location = new-object System.Drawing.Size(400, 465)
+	$WindowsMaps.Size = new-object System.Drawing.Size(250, 50)
+	$WindowsMaps.Text = "Windows Maps"
+	$WindowsMaps.Checked = $true
+	$Form.Controls.Add($WindowsMaps)  
 
-    # WindowsSoundRecorder checkbox 
-    $WindowsSoundRecorder = new-object System.Windows.Forms.checkbox
-    $WindowsSoundRecorder.Location = new-object System.Drawing.Size(30,515)
-    $WindowsSoundRecorder.Size = new-object System.Drawing.Size(250,50)
-    $WindowsSoundRecorder.Text = "Windows Sound Recorder"
-    $WindowsSoundRecorder.Checked = $true
-    $Form.Controls.Add($WindowsSoundRecorder)  
+	# WindowsSoundRecorder checkbox 
+	$WindowsSoundRecorder = new-object System.Windows.Forms.checkbox
+	$WindowsSoundRecorder.Location = new-object System.Drawing.Size(30, 515)
+	$WindowsSoundRecorder.Size = new-object System.Drawing.Size(250, 50)
+	$WindowsSoundRecorder.Text = "Windows Sound Recorder"
+	$WindowsSoundRecorder.Checked = $true
+	$Form.Controls.Add($WindowsSoundRecorder)  
     
-    # Zune Music checkbox 
-    $ZuneMusic = new-object System.Windows.Forms.checkbox
-    $ZuneMusic.Location = new-object System.Drawing.Size(400,515)
-    $ZuneMusic.Size = new-object System.Drawing.Size(250,50)
-    $ZuneMusic.Text = "Zune Music"
-    $ZuneMusic.Checked = $true
-    $Form.Controls.Add($ZuneMusic) 
+	# Zune Music checkbox 
+	$ZuneMusic = new-object System.Windows.Forms.checkbox
+	$ZuneMusic.Location = new-object System.Drawing.Size(400, 515)
+	$ZuneMusic.Size = new-object System.Drawing.Size(250, 50)
+	$ZuneMusic.Text = "Zune Music"
+	$ZuneMusic.Checked = $true
+	$Form.Controls.Add($ZuneMusic) 
     
-    # Zune Video checkbox 
-    $ZuneVideo = new-object System.Windows.Forms.checkbox
-    $ZuneVideo.Location = new-object System.Drawing.Size(30,565)
-    $ZuneVideo.Size = new-object System.Drawing.Size(250,50)
-    $ZuneVideo.Text = "Zune Video"
-    $ZuneVideo.Checked = $true
-    $Form.Controls.Add($ZuneVideo)
+	# Zune Video checkbox 
+	$ZuneVideo = new-object System.Windows.Forms.checkbox
+	$ZuneVideo.Location = new-object System.Drawing.Size(30, 565)
+	$ZuneVideo.Size = new-object System.Drawing.Size(250, 50)
+	$ZuneVideo.Text = "Zune Video"
+	$ZuneVideo.Checked = $true
+	$Form.Controls.Add($ZuneVideo)
 
-    # Windows Photos checkbox 
-    $photos = new-object System.Windows.Forms.checkbox
-    $photos.Location = new-object System.Drawing.Size(400,565)
-    $photos.Size = new-object System.Drawing.Size(250,50)
-    $photos.Text = "Microsoft Windows Photos"  
-    $photos.Checked = $true
-    $Form.Controls.Add($photos)
-    
-
-    # WindowsPhone checkbox 
-    $WindowsPhone = new-object System.Windows.Forms.checkbox
-    $WindowsPhone.Location = new-object System.Drawing.Size(30,615)
-    $WindowsPhone.Size = new-object System.Drawing.Size(250,50)
-    $WindowsPhone.Text = "Windows Phone"
-    $WindowsPhone.Checked = $true
-    $Form.Controls.Add($WindowsPhone)
-
-    # Windows Camera checkbox 
-    $WindowsCamera = new-object System.Windows.Forms.checkbox
-    $WindowsCamera.Location = new-object System.Drawing.Size(400,615)
-    $WindowsCamera.Size = new-object System.Drawing.Size(250,50)
-    $WindowsCamera.Text = "Microsoft Windows Camera"  
-    $WindowsCamera.Checked = $true
-    $Form.Controls.Add($WindowsCamera)
+	# Windows Photos checkbox 
+	$photos = new-object System.Windows.Forms.checkbox
+	$photos.Location = new-object System.Drawing.Size(400, 565)
+	$photos.Size = new-object System.Drawing.Size(250, 50)
+	$photos.Text = "Microsoft Windows Photos"  
+	$photos.Checked = $true
+	$Form.Controls.Add($photos)
     
 
-    # 3DBuilder checkbox 
-    $3DBuilder = new-object System.Windows.Forms.checkbox
-    $3DBuilder.Location = new-object System.Drawing.Size(30,665)
-    $3DBuilder.Size = new-object System.Drawing.Size(250,50)
-    $3DBuilder.Text = "Microsoft 3D Builder"
-    $3DBuilder.Checked = $true
-    $Form.Controls.Add($3DBuilder)
+	# WindowsPhone checkbox 
+	$WindowsPhone = new-object System.Windows.Forms.checkbox
+	$WindowsPhone.Location = new-object System.Drawing.Size(30, 615)
+	$WindowsPhone.Size = new-object System.Drawing.Size(250, 50)
+	$WindowsPhone.Text = "Windows Phone"
+	$WindowsPhone.Checked = $true
+	$Form.Controls.Add($WindowsPhone)
 
-    # AppConnector checkbox 
-    $AppConnector = new-object System.Windows.Forms.checkbox
-    $AppConnector.Location = new-object System.Drawing.Size(400,665)
-    $AppConnector.Size = new-object System.Drawing.Size(250,50)
-    $AppConnector.Text = "Microsoft AppConnector"  
-    $AppConnector.Checked = $true
-    $Form.Controls.Add($AppConnector)
-    
-    # WindowsCamera checkbox 
-    $WindowsCamera = new-object System.Windows.Forms.checkbox
-    $WindowsCamera.Location = new-object System.Drawing.Size(30,715)
-    $WindowsCamera.Size = new-object System.Drawing.Size(250,50)
-    $WindowsCamera.Text = "Windows Camera"
-    $WindowsCamera.Checked = $true
-    $Form.Controls.Add($WindowsCamera)
-
-    # MinecraftUWP checkbox 
-    $MinecraftUWP = new-object System.Windows.Forms.checkbox
-    $MinecraftUWP.Location = new-object System.Drawing.Size(400,715)
-    $MinecraftUWP.Size = new-object System.Drawing.Size(250,50)
-    $MinecraftUWP.Text = "Minecraft UWP"  
-    $MinecraftUWP.Checked = $true
-    $Form.Controls.Add($MinecraftUWP)
+	# Windows Camera checkbox 
+	$WindowsCamera = new-object System.Windows.Forms.checkbox
+	$WindowsCamera.Location = new-object System.Drawing.Size(400, 615)
+	$WindowsCamera.Size = new-object System.Drawing.Size(250, 50)
+	$WindowsCamera.Text = "Microsoft Windows Camera"  
+	$WindowsCamera.Checked = $true
+	$Form.Controls.Add($WindowsCamera)
     
 
-    # MicrosoftStickyNotes checkbox 
-    $MicrosoftStickyNotes = new-object System.Windows.Forms.checkbox
-    $MicrosoftStickyNotes.Location = new-object System.Drawing.Size(30,765)
-    $MicrosoftStickyNotes.Size = new-object System.Drawing.Size(250,50)
-    $MicrosoftStickyNotes.Text = "Microsoft Sticky Notes"
-    $MicrosoftStickyNotes.Checked = $true
-    $Form.Controls.Add($MicrosoftStickyNotes)
+	# 3DBuilder checkbox 
+	$3DBuilder = new-object System.Windows.Forms.checkbox
+	$3DBuilder.Location = new-object System.Drawing.Size(30, 665)
+	$3DBuilder.Size = new-object System.Drawing.Size(250, 50)
+	$3DBuilder.Text = "Microsoft 3D Builder"
+	$3DBuilder.Checked = $true
+	$Form.Controls.Add($3DBuilder)
 
-    # MinecraftUWP checkbox 
-    $OneNote = new-object System.Windows.Forms.checkbox
-    $OneNote.Location = new-object System.Drawing.Size(400,765)
-    $OneNote.Size = new-object System.Drawing.Size(250,50)
-    $OneNote.Text = "OneNote"  
-    $OneNote.Checked = $true
-    $Form.Controls.Add($OneNote)
+	# AppConnector checkbox 
+	$AppConnector = new-object System.Windows.Forms.checkbox
+	$AppConnector.Location = new-object System.Drawing.Size(400, 665)
+	$AppConnector.Size = new-object System.Drawing.Size(250, 50)
+	$AppConnector.Text = "Microsoft AppConnector"  
+	$AppConnector.Checked = $true
+	$Form.Controls.Add($AppConnector)
+    
+	# WindowsCamera checkbox 
+	$WindowsCamera = new-object System.Windows.Forms.checkbox
+	$WindowsCamera.Location = new-object System.Drawing.Size(30, 715)
+	$WindowsCamera.Size = new-object System.Drawing.Size(250, 50)
+	$WindowsCamera.Text = "Windows Camera"
+	$WindowsCamera.Checked = $true
+	$Form.Controls.Add($WindowsCamera)
+
+	# MinecraftUWP checkbox 
+	$MinecraftUWP = new-object System.Windows.Forms.checkbox
+	$MinecraftUWP.Location = new-object System.Drawing.Size(400, 715)
+	$MinecraftUWP.Size = new-object System.Drawing.Size(250, 50)
+	$MinecraftUWP.Text = "Minecraft UWP"  
+	$MinecraftUWP.Checked = $true
+	$Form.Controls.Add($MinecraftUWP)
+    
+
+	# MicrosoftStickyNotes checkbox 
+	$MicrosoftStickyNotes = new-object System.Windows.Forms.checkbox
+	$MicrosoftStickyNotes.Location = new-object System.Drawing.Size(30, 765)
+	$MicrosoftStickyNotes.Size = new-object System.Drawing.Size(250, 50)
+	$MicrosoftStickyNotes.Text = "Microsoft Sticky Notes"
+	$MicrosoftStickyNotes.Checked = $true
+	$Form.Controls.Add($MicrosoftStickyNotes)
+
+	# MinecraftUWP checkbox 
+	$OneNote = new-object System.Windows.Forms.checkbox
+	$OneNote.Location = new-object System.Drawing.Size(400, 765)
+	$OneNote.Size = new-object System.Drawing.Size(250, 50)
+	$OneNote.Text = "OneNote"  
+	$OneNote.Checked = $true
+	$Form.Controls.Add($OneNote)
     
     
 
-    # OK button
-    $OKButton = new-object System.Windows.Forms.Button
-    $OKButton.Location = new-object System.Drawing.Size(100,815)
-    $OKButton.Size = new-object System.Drawing.Size(500,40)
-    $OKButton.Text = "OK"
-    $OKButton.Add_Click({$Form.Close()})
-    $form.Controls.Add($OKButton)
+	# OK button
+	$OKButton = new-object System.Windows.Forms.Button
+	$OKButton.Location = new-object System.Drawing.Size(100, 815)
+	$OKButton.Size = new-object System.Drawing.Size(500, 40)
+	$OKButton.Text = "OK"
+	$OKButton.Add_Click( { $Form.Close() })
+	$form.Controls.Add($OKButton)
  
     
-    # Activate the form
-    $Form.Add_Shown({$Form.Activate()})
-    [void] $Form.ShowDialog() 
+	# Activate the form
+	$Form.Add_Shown( { $Form.Activate() })
+	[void] $Form.ShowDialog() 
 
-    if ($bingApps.Checked -match "True"){
-        $arrayApps.Add("Microsoft.BingNews")
-        $arrayApps.Add("Microsoft.BingFinance")
-	    $arrayApps.Add("Microsoft.BingSports")
-        $arrayApps.Add("Microsoft.BingTranslator")
-	    $arrayApps.Add("Microsoft.BingWeather")
-    }
-    if ($getHelp.Checked -match "True"){
-        $arrayApps.Add("Microsoft.GetHelp")
-    }
-    if ($Getstarted.Checked -match "True"){
-        $arrayApps.Add("Microsoft.Getstarted")
-    }
-    if ($Messaging.Checked -match "True"){
-        $arrayApps.Add("Microsoft.Messaging")
-    }
+	if ($bingApps.Checked -match "True") {
+		$arrayApps.Add("Microsoft.BingNews")
+		$arrayApps.Add("Microsoft.BingFinance")
+		$arrayApps.Add("Microsoft.BingSports")
+		$arrayApps.Add("Microsoft.BingTranslator")
+		$arrayApps.Add("Microsoft.BingWeather")
+	}
+	if ($getHelp.Checked -match "True") {
+		$arrayApps.Add("Microsoft.GetHelp")
+	}
+	if ($Getstarted.Checked -match "True") {
+		$arrayApps.Add("Microsoft.Getstarted")
+	}
+	if ($Messaging.Checked -match "True") {
+		$arrayApps.Add("Microsoft.Messaging")
+	}
 
-    if ($Microsoft3DViewer.Checked -match "True"){
-        $arrayApps.Add("Microsoft.Microsoft3DViewer")
-    }
-    if ($MicrosoftSolitaireCollection.Checked -match "True"){
-        $arrayApps.Add("Microsoft.MicrosoftSolitaireCollection")
-    }
-    if ($NetworkSpeedTest.Checked -match "True"){
-        $arrayApps.Add("Microsoft.NetworkSpeedTest")
-    }
-    if ($News.Checked -match "True"){
-        $arrayApps.Add("Microsoft.News")
-    }
+	if ($Microsoft3DViewer.Checked -match "True") {
+		$arrayApps.Add("Microsoft.Microsoft3DViewer")
+	}
+	if ($MicrosoftSolitaireCollection.Checked -match "True") {
+		$arrayApps.Add("Microsoft.MicrosoftSolitaireCollection")
+	}
+	if ($NetworkSpeedTest.Checked -match "True") {
+		$arrayApps.Add("Microsoft.NetworkSpeedTest")
+	}
+	if ($News.Checked -match "True") {
+		$arrayApps.Add("Microsoft.News")
+	}
 
-    if ($Lens.Checked -match "True"){
-        $arrayApps.Add("Microsoft.Office.Lens")
-    }
-    if ($Sway.Checked -match "True"){
-        $arrayApps.Add("Microsoft.Office.Sway")
-    }
-    if ($OneConnect.Checked -match "True"){
-        $arrayApps.Add("Microsoft.OneConnect")
-    }
-    if ($People.Checked -match "True"){
-        $arrayApps.Add("Microsoft.People")
-    }
+	if ($Lens.Checked -match "True") {
+		$arrayApps.Add("Microsoft.Office.Lens")
+	}
+	if ($Sway.Checked -match "True") {
+		$arrayApps.Add("Microsoft.Office.Sway")
+	}
+	if ($OneConnect.Checked -match "True") {
+		$arrayApps.Add("Microsoft.OneConnect")
+	}
+	if ($People.Checked -match "True") {
+		$arrayApps.Add("Microsoft.People")
+	}
 
-    if ($Print3D.Checked -match "True"){
-        $arrayApps.Add("Microsoft.Print3D")
-    }
-    if ($SkypeApp.Checked -match "True"){
-        $arrayApps.Add("Microsoft.SkypeApp")
-    }
-    if ($StorePurchaseApp.Checked -match "True"){
-        $arrayApps.Add("Microsoft.StorePurchaseApp")
-    }
-    if ($Whiteboard.Checked -match "True"){
-        $arrayApps.Add("Microsoft.Whiteboard")
-    }
+	if ($Print3D.Checked -match "True") {
+		$arrayApps.Add("Microsoft.Print3D")
+	}
+	if ($SkypeApp.Checked -match "True") {
+		$arrayApps.Add("Microsoft.SkypeApp")
+	}
+	if ($StorePurchaseApp.Checked -match "True") {
+		$arrayApps.Add("Microsoft.StorePurchaseApp")
+	}
+	if ($Whiteboard.Checked -match "True") {
+		$arrayApps.Add("Microsoft.Whiteboard")
+	}
 
-    if ($WindowsAlarms.Checked -match "True"){
-        $arrayApps.Add("Microsoft.WindowsAlarms")
-    }
-    if ($windowscommunicationsapps.Checked -match "True"){
-        $arrayApps.Add("Microsoft.windowscommunicationsapps")
-    }
-    if ($WindowsFeedbackHub.Checked -match "True"){
-        $arrayApps.Add("Microsoft.WindowsFeedbackHub")
-    }
-    if ($WindowsMaps.Checked -match "True"){
-        $arrayApps.Add("Microsoft.WindowsMaps")
-    }
+	if ($WindowsAlarms.Checked -match "True") {
+		$arrayApps.Add("Microsoft.WindowsAlarms")
+	}
+	if ($windowscommunicationsapps.Checked -match "True") {
+		$arrayApps.Add("Microsoft.windowscommunicationsapps")
+	}
+	if ($WindowsFeedbackHub.Checked -match "True") {
+		$arrayApps.Add("Microsoft.WindowsFeedbackHub")
+	}
+	if ($WindowsMaps.Checked -match "True") {
+		$arrayApps.Add("Microsoft.WindowsMaps")
+	}
 
-    if ($WindowsSoundRecorder.Checked -match "True"){
-        $arrayApps.Add("Microsoft.WindowsSoundRecorder")
-    }
-    if ($ZuneMusic.Checked -match "True"){
-        $arrayApps.Add("Microsoft.ZuneMusic")
-    }
-    if ($ZuneVideo.Checked -match "True"){
-        $arrayApps.Add("Microsoft.ZuneVideo") 
-    }
+	if ($WindowsSoundRecorder.Checked -match "True") {
+		$arrayApps.Add("Microsoft.WindowsSoundRecorder")
+	}
+	if ($ZuneMusic.Checked -match "True") {
+		$arrayApps.Add("Microsoft.ZuneMusic")
+	}
+	if ($ZuneVideo.Checked -match "True") {
+		$arrayApps.Add("Microsoft.ZuneVideo") 
+	}
 
-    if ($photos.Checked -match "True"){
-        $arrayApps.Add("Microsoft.Windows.Photos")
-    }
-    if ($WindowsPhone.Checked -match "True"){
-        $arrayApps.Add("Microsoft.WindowsPhone")
-    }
-
-
-    if ($WindowsCamera.Checked -match "True"){
-        $arrayApps.Add("Microsoft.WindowsCamera") 
-    }
-
-    if ($MinecraftUWP.Checked -match "True"){
-        $arrayApps.Add("Microsoft.MinecraftUWP")
-    }
-    if ($MicrosoftStickyNotes.Checked -match "True"){
-        $arrayApps.Add("Microsoft.MicrosoftStickyNotes")
-    }
-    if ($OneNote.Checked -match "True"){
-        $arrayApps.Add("Microsoft.Office.OneNote") 
-    }
+	if ($photos.Checked -match "True") {
+		$arrayApps.Add("Microsoft.Windows.Photos")
+	}
+	if ($WindowsPhone.Checked -match "True") {
+		$arrayApps.Add("Microsoft.WindowsPhone")
+	}
 
 
-    cls
+	if ($WindowsCamera.Checked -match "True") {
+		$arrayApps.Add("Microsoft.WindowsCamera") 
+	}
+
+	if ($MinecraftUWP.Checked -match "True") {
+		$arrayApps.Add("Microsoft.MinecraftUWP")
+	}
+	if ($MicrosoftStickyNotes.Checked -match "True") {
+		$arrayApps.Add("Microsoft.MicrosoftStickyNotes")
+	}
+	if ($OneNote.Checked -match "True") {
+		$arrayApps.Add("Microsoft.Office.OneNote") 
+	}
+
+
+	cls
 }
 
-Function FormSponsoredApps{
-    [void] [System.Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms")
-    [void] [System.Reflection.Assembly]::LoadWithPartialName("System.Drawing")
+Function FormSponsoredApps {
+	[void] [System.Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms")
+	[void] [System.Reflection.Assembly]::LoadWithPartialName("System.Drawing")
     
-    # Set the size of your form
-    $Form = New-Object System.Windows.Forms.Form
-    $Form.width = 700
-    $Form.height = 600
-    $Form.Text = "Deselect the Sponsored Windows 10 Apps you want do NOT want to uninstall."
+	# Set the size of your form
+	$Form = New-Object System.Windows.Forms.Form
+	$Form.width = 700
+	$Form.height = 600
+	$Form.Text = "Deselect the Sponsored Windows 10 Apps you want do NOT want to uninstall."
  
-    # Set the font of the text to be used within the form
-    $Font = New-Object System.Drawing.Font("Times New Roman",12)
-    $Form.Font = $Font
+	# Set the font of the text to be used within the form
+	$Font = New-Object System.Drawing.Font("Times New Roman", 12)
+	$Form.Font = $Font
  
-    # Eclipse Manager Checkbox
-    $EclipseManager = new-object System.Windows.Forms.checkbox
-    $EclipseManager.Location = new-object System.Drawing.Size(30,30)
-    $EclipseManager.Size = new-object System.Drawing.Size(250,50)
-    $EclipseManager.Text = "EclipseManager"
-    $EclipseManager.Checked = $true
-    $Form.Controls.Add($EclipseManager)  
+	# Eclipse Manager Checkbox
+	$EclipseManager = new-object System.Windows.Forms.checkbox
+	$EclipseManager.Location = new-object System.Drawing.Size(30, 30)
+	$EclipseManager.Size = new-object System.Drawing.Size(250, 50)
+	$EclipseManager.Text = "EclipseManager"
+	$EclipseManager.Checked = $true
+	$Form.Controls.Add($EclipseManager)  
 
-    # ActiproSoftwareLLC Checkbox
-    $ActiproSoftwareLLC = new-object System.Windows.Forms.checkbox
-    $ActiproSoftwareLLC.Location = new-object System.Drawing.Size(400,30)
-    $ActiproSoftwareLLC.Size = new-object System.Drawing.Size(250,50)
-    $ActiproSoftwareLLC.Text = "Actipro Software LLC"
-    $ActiproSoftwareLLC.Checked = $true
-    $Form.Controls.Add($ActiproSoftwareLLC)  
+	# ActiproSoftwareLLC Checkbox
+	$ActiproSoftwareLLC = new-object System.Windows.Forms.checkbox
+	$ActiproSoftwareLLC.Location = new-object System.Drawing.Size(400, 30)
+	$ActiproSoftwareLLC.Size = new-object System.Drawing.Size(250, 50)
+	$ActiproSoftwareLLC.Text = "Actipro Software LLC"
+	$ActiproSoftwareLLC.Checked = $true
+	$Form.Controls.Add($ActiproSoftwareLLC)  
 
-    # AdobePhotoshopExpress checkbox 
-    $AdobePhotoshopExpress = new-object System.Windows.Forms.checkbox
-    $AdobePhotoshopExpress.Location = new-object System.Drawing.Size(30,80)
-    $AdobePhotoshopExpress.Size = new-object System.Drawing.Size(250,50)
-    $AdobePhotoshopExpress.Text = "Adobe Photoshop Express"
-    $AdobePhotoshopExpress.Checked = $true
-    $Form.Controls.Add($AdobePhotoshopExpress) 
+	# AdobePhotoshopExpress checkbox 
+	$AdobePhotoshopExpress = new-object System.Windows.Forms.checkbox
+	$AdobePhotoshopExpress.Location = new-object System.Drawing.Size(30, 80)
+	$AdobePhotoshopExpress.Size = new-object System.Drawing.Size(250, 50)
+	$AdobePhotoshopExpress.Text = "Adobe Photoshop Express"
+	$AdobePhotoshopExpress.Checked = $true
+	$Form.Controls.Add($AdobePhotoshopExpress) 
     
-    # Duolingo checkbox 
-    $Duolingo = new-object System.Windows.Forms.checkbox
-    $Duolingo.Location = new-object System.Drawing.Size(400,80)
-    $Duolingo.Size = new-object System.Drawing.Size(250,50)
-    $Duolingo.Text = "Duolingo"
-    $Duolingo.Checked = $true
-    $Form.Controls.Add($Duolingo)  
+	# Duolingo checkbox 
+	$Duolingo = new-object System.Windows.Forms.checkbox
+	$Duolingo.Location = new-object System.Drawing.Size(400, 80)
+	$Duolingo.Size = new-object System.Drawing.Size(250, 50)
+	$Duolingo.Text = "Duolingo"
+	$Duolingo.Checked = $true
+	$Form.Controls.Add($Duolingo)  
 
-    # PandoraMediaInc checkbox 
-    $PandoraMediaInc = new-object System.Windows.Forms.checkbox
-    $PandoraMediaInc.Location = new-object System.Drawing.Size(30,130)
-    $PandoraMediaInc.Size = new-object System.Drawing.Size(250,50)
-    $PandoraMediaInc.Text = "Pandora Media Inc"
-    $PandoraMediaInc.Checked = $true
-    $Form.Controls.Add($PandoraMediaInc)  
+	# PandoraMediaInc checkbox 
+	$PandoraMediaInc = new-object System.Windows.Forms.checkbox
+	$PandoraMediaInc.Location = new-object System.Drawing.Size(30, 130)
+	$PandoraMediaInc.Size = new-object System.Drawing.Size(250, 50)
+	$PandoraMediaInc.Text = "Pandora Media Inc"
+	$PandoraMediaInc.Checked = $true
+	$Form.Controls.Add($PandoraMediaInc)  
  
-    # CandyCrush checkbox 
-    $CandyCrush = new-object System.Windows.Forms.checkbox
-    $CandyCrush.Location = new-object System.Drawing.Size(400,130)
-    $CandyCrush.Size = new-object System.Drawing.Size(250,50)
-    $CandyCrush.Text = "Candy Crush"
-    $CandyCrush.Checked = $true
-    $Form.Controls.Add($CandyCrush)  
+	# CandyCrush checkbox 
+	$CandyCrush = new-object System.Windows.Forms.checkbox
+	$CandyCrush.Location = new-object System.Drawing.Size(400, 130)
+	$CandyCrush.Size = new-object System.Drawing.Size(250, 50)
+	$CandyCrush.Text = "Candy Crush"
+	$CandyCrush.Checked = $true
+	$Form.Controls.Add($CandyCrush)  
 
-    # BubbleWitch3Saga checkbox 
-    $BubbleWitch3Saga = new-object System.Windows.Forms.checkbox
-    $BubbleWitch3Saga.Location = new-object System.Drawing.Size(30,180)
-    $BubbleWitch3Saga.Size = new-object System.Drawing.Size(250,50)
-    $BubbleWitch3Saga.Text = "Bubble Witch 3 Saga"
-    $BubbleWitch3Saga.Checked = $true
-    $Form.Controls.Add($BubbleWitch3Saga)  
+	# BubbleWitch3Saga checkbox 
+	$BubbleWitch3Saga = new-object System.Windows.Forms.checkbox
+	$BubbleWitch3Saga.Location = new-object System.Drawing.Size(30, 180)
+	$BubbleWitch3Saga.Size = new-object System.Drawing.Size(250, 50)
+	$BubbleWitch3Saga.Text = "Bubble Witch 3 Saga"
+	$BubbleWitch3Saga.Checked = $true
+	$Form.Controls.Add($BubbleWitch3Saga)  
 
-    # Wunderlist checkbox 
-    $Wunderlist = new-object System.Windows.Forms.checkbox
-    $Wunderlist.Location = new-object System.Drawing.Size(400,180)
-    $Wunderlist.Size = new-object System.Drawing.Size(250,50)
-    $Wunderlist.Text = "Wunderlist"
-    $Wunderlist.Checked = $true
-    $Form.Controls.Add($Wunderlist)  
+	# Wunderlist checkbox 
+	$Wunderlist = new-object System.Windows.Forms.checkbox
+	$Wunderlist.Location = new-object System.Drawing.Size(400, 180)
+	$Wunderlist.Size = new-object System.Drawing.Size(250, 50)
+	$Wunderlist.Text = "Wunderlist"
+	$Wunderlist.Checked = $true
+	$Form.Controls.Add($Wunderlist)  
 
-    # Flipboard checkbox 
-    $Flipboard = new-object System.Windows.Forms.checkbox
-    $Flipboard.Location = new-object System.Drawing.Size(30,230)
-    $Flipboard.Size = new-object System.Drawing.Size(250,50)
-    $Flipboard.Text = "Flipboard"
-    $Flipboard.Checked = $true
-    $Form.Controls.Add($Flipboard)  
+	# Flipboard checkbox 
+	$Flipboard = new-object System.Windows.Forms.checkbox
+	$Flipboard.Location = new-object System.Drawing.Size(30, 230)
+	$Flipboard.Size = new-object System.Drawing.Size(250, 50)
+	$Flipboard.Text = "Flipboard"
+	$Flipboard.Checked = $true
+	$Form.Controls.Add($Flipboard)  
 
-    # Twitter checkbox 
-    $Twitter = new-object System.Windows.Forms.checkbox
-    $Twitter.Location = new-object System.Drawing.Size(400,230)
-    $Twitter.Size = new-object System.Drawing.Size(250,50)
-    $Twitter.Text = "Twitter"
-    $Twitter.Checked = $true
-    $Form.Controls.Add($Twitter)  
+	# Twitter checkbox 
+	$Twitter = new-object System.Windows.Forms.checkbox
+	$Twitter.Location = new-object System.Drawing.Size(400, 230)
+	$Twitter.Size = new-object System.Drawing.Size(250, 50)
+	$Twitter.Text = "Twitter"
+	$Twitter.Checked = $true
+	$Form.Controls.Add($Twitter)  
 
-    # Facebook checkbox 
-    $Facebook = new-object System.Windows.Forms.checkbox
-    $Facebook.Location = new-object System.Drawing.Size(30,280)
-    $Facebook.Size = new-object System.Drawing.Size(250,50)
-    $Facebook.Text = "Facebook"
-    $Facebook.Checked = $true
-    $Form.Controls.Add($Facebook)  
+	# Facebook checkbox 
+	$Facebook = new-object System.Windows.Forms.checkbox
+	$Facebook.Location = new-object System.Drawing.Size(30, 280)
+	$Facebook.Size = new-object System.Drawing.Size(250, 50)
+	$Facebook.Text = "Facebook"
+	$Facebook.Checked = $true
+	$Form.Controls.Add($Facebook)  
     
-    # Spotify checkbox 
-    $Spotify = new-object System.Windows.Forms.checkbox
-    $Spotify.Location = new-object System.Drawing.Size(400,280)
-    $Spotify.Size = new-object System.Drawing.Size(250,50)
-    $Spotify.Text = "Spotify"
-    $Spotify.Checked = $true
-    $Form.Controls.Add($Spotify)  
+	# Spotify checkbox 
+	$Spotify = new-object System.Windows.Forms.checkbox
+	$Spotify.Location = new-object System.Drawing.Size(400, 280)
+	$Spotify.Size = new-object System.Drawing.Size(250, 50)
+	$Spotify.Text = "Spotify"
+	$Spotify.Checked = $true
+	$Form.Controls.Add($Spotify)  
 
-    # Royal Revolt checkbox 
-    $RoyalRevolt = new-object System.Windows.Forms.checkbox
-    $RoyalRevolt.Location = new-object System.Drawing.Size(30,330)
-    $RoyalRevolt.Size = new-object System.Drawing.Size(250,50)
-    $RoyalRevolt.Text = "Royal Revolt"
-    $RoyalRevolt.Checked = $true
-    $Form.Controls.Add($RoyalRevolt)  
+	# Royal Revolt checkbox 
+	$RoyalRevolt = new-object System.Windows.Forms.checkbox
+	$RoyalRevolt.Location = new-object System.Drawing.Size(30, 330)
+	$RoyalRevolt.Size = new-object System.Drawing.Size(250, 50)
+	$RoyalRevolt.Text = "Royal Revolt"
+	$RoyalRevolt.Checked = $true
+	$Form.Controls.Add($RoyalRevolt)  
     
-    # Sway checkbox 
-    $Sway = new-object System.Windows.Forms.checkbox
-    $Sway.Location = new-object System.Drawing.Size(400,330)
-    $Sway.Size = new-object System.Drawing.Size(250,50)
-    $Sway.Text = "Sway"
-    $Sway.Checked = $true
-    $Form.Controls.Add($Sway)  
+	# Sway checkbox 
+	$Sway = new-object System.Windows.Forms.checkbox
+	$Sway.Location = new-object System.Drawing.Size(400, 330)
+	$Sway.Size = new-object System.Drawing.Size(250, 50)
+	$Sway.Text = "Sway"
+	$Sway.Checked = $true
+	$Form.Controls.Add($Sway)  
 
-    # Speed Test checkbox 
-    $SpeedTest = new-object System.Windows.Forms.checkbox
-    $SpeedTest.Location = new-object System.Drawing.Size(30,380)
-    $SpeedTest.Size = new-object System.Drawing.Size(250,50)
-    $SpeedTest.Text = "SpeedTest"
-    $SpeedTest.Checked = $true
-    $Form.Controls.Add($SpeedTest)  
+	# Speed Test checkbox 
+	$SpeedTest = new-object System.Windows.Forms.checkbox
+	$SpeedTest.Location = new-object System.Drawing.Size(30, 380)
+	$SpeedTest.Size = new-object System.Drawing.Size(250, 50)
+	$SpeedTest.Text = "SpeedTest"
+	$SpeedTest.Checked = $true
+	$Form.Controls.Add($SpeedTest)  
     
-    # Dolby checkbox 
-    $Dolby = new-object System.Windows.Forms.checkbox
-    $Dolby.Location = new-object System.Drawing.Size(400,380)
-    $Dolby.Size = new-object System.Drawing.Size(250,50)
-    $Dolby.Text = "Dolby"
-    $Dolby.Checked = $true
-    $Form.Controls.Add($Dolby)
+	# Dolby checkbox 
+	$Dolby = new-object System.Windows.Forms.checkbox
+	$Dolby.Location = new-object System.Drawing.Size(400, 380)
+	$Dolby.Size = new-object System.Drawing.Size(250, 50)
+	$Dolby.Text = "Dolby"
+	$Dolby.Checked = $true
+	$Form.Controls.Add($Dolby)
     
 
-    # OK button
-    $OKButton = new-object System.Windows.Forms.Button
-    $OKButton.Location = new-object System.Drawing.Size(100,480)
-    $OKButton.Size = new-object System.Drawing.Size(500,40)
-    $OKButton.Text = "OK"
-    $OKButton.Add_Click({$Form.Close()})
-    $form.Controls.Add($OKButton)
+	# Netflix checkbox 
+	$Netflix = new-object System.Windows.Forms.checkbox
+	$Netflix.Location = new-object System.Drawing.Size(30, 430)
+	$Netflix.Size = new-object System.Drawing.Size(250, 50)
+	$Netflix.Text = "Netflix"
+	$Netflix.Checked = $true
+	$Form.Controls.Add($Netflix)
+	
+	# OK button
+	$OKButton = new-object System.Windows.Forms.Button
+	$OKButton.Location = new-object System.Drawing.Size(100, 500)
+	$OKButton.Size = new-object System.Drawing.Size(500, 40)
+	$OKButton.Text = "OK"
+	$OKButton.Add_Click( { $Form.Close() })
+	$form.Controls.Add($OKButton)
  
     
-    # Activate the form
-    $Form.Add_Shown({$Form.Activate()})
-    [void] $Form.ShowDialog() 
+	# Activate the form
+	$Form.Add_Shown( { $Form.Activate() })
+	[void] $Form.ShowDialog() 
 
-    if ($EclipseManager.Checked -match "True"){
-        $arrayApps.Add("*EclipseManager*")
-    }
-    if ($ActiproSoftwareLLC.Checked -match "True"){
-        $arrayApps.Add("*ActiproSoftwareLLC*")
-    }
-    if ($AdobePhotoshopExpress.Checked -match "True"){
-        $arrayApps.Add("*AdobeSystemsIncorporated.AdobePhotoshopExpress*")
-    }
-    if ($Duolingo.Checked -match "True"){
-        $arrayApps.Add("*Duolingo-LearnLanguagesforFree*")
-    }
+	if ($EclipseManager.Checked -match "True") {
+		$arrayApps.Add("*EclipseManager*")
+	}
+	if ($ActiproSoftwareLLC.Checked -match "True") {
+		$arrayApps.Add("*ActiproSoftwareLLC*")
+		$arrayApps.Add("ActiproSoftwareLLC.562882FEEB491")
+	}
+	if ($AdobePhotoshopExpress.Checked -match "True") {
+		$arrayApps.Add("*AdobeSystemsIncorporated.AdobePhotoshopExpress*")
+	}
+	if ($Duolingo.Checked -match "True") {
+		$arrayApps.Add("*Duolingo-LearnLanguagesforFree*")
+		$arrayApps.Add("D5EA27B7.Duolingo-LearnLanguagesforFree")
+		
+	}
 
-    if ($PandoraMediaInc.Checked -match "True"){
-        $arrayApps.Add("*PandoraMediaInc*")
-    }
-    if ($CandyCrush.Checked -match "True"){
-        $arrayApps.Add("*CandyCrush*")
-    }
-    if ($BubbleWitch3Saga.Checked -match "True"){
-        $arrayApps.Add("*BubbleWitch3Saga*")
-    }
-    if ($Wunderlist.Checked -match "True"){
-        $arrayApps.Add("*Wunderlist*")
-    }
+	if ($PandoraMediaInc.Checked -match "True") {
+		$arrayApps.Add("*PandoraMediaInc*")
+		$arrayApps.Add("PandoraMediaInc.29680B314EFC2")
+	}
+	if ($CandyCrush.Checked -match "True") {
+		$arrayApps.Add("*CandyCrush*")
+		$arrayApps.Add("king.com.CandyCrushSodaSaga")
+	}
+	if ($BubbleWitch3Saga.Checked -match "True") {
+		$arrayApps.Add("*BubbleWitch3Saga*")
+		$arrayApps.Add("king.com.BubbleWitch3Saga")
+	}
+	if ($Wunderlist.Checked -match "True") {
+		$arrayApps.Add("*Wunderlist*")
+	}
 
-    if ($Flipboard.Checked -match "True"){
-        $arrayApps.Add("*Flipboard*")
-    }
-    if ($Twitter.Checked -match "True"){
-        $arrayApps.Add("*Twitter*")
-    }
-    if ($Facebook.Checked -match "True"){
-        $arrayApps.Add("*Facebook*")
-    }
-    if ($Spotify.Checked -match "True"){
-        $arrayApps.Add("*Spotify*")
-    }
+	if ($Flipboard.Checked -match "True") {
+		$arrayApps.Add("*Flipboard*")
+	}
+	if ($Twitter.Checked -match "True") {
+		$arrayApps.Add("*Twitter*")
+		$arrayApps.Add("9E2F88E3.Twitter")
+	}
+	if ($Facebook.Checked -match "True") {
+		$arrayApps.Add("*Facebook*")
+	}
+	if ($Spotify.Checked -match "True") {
+		$arrayApps.Add("*Spotify*")
+		$arrayApps.Add("SpotifyAB.SpotifyMusic")
+	}
 
-    if ($RoyalRevolt.Checked -match "True"){
-        $arrayApps.Add("*Royal Revolt*")
-    }
-    if ($Sway.Checked -match "True"){
-        $arrayApps.Add("*Sway*")
-    }
-    if ($SpeedTest.Checked -match "True"){
-        $arrayApps.Add("*Speed Test*")
-    }
-    if ($Dolby.Checked -match "True"){
-        $arrayApps.Add("*Dolby*")
-    }
+	if ($RoyalRevolt.Checked -match "True") {
+		$arrayApps.Add("*Royal Revolt*")
+	}
+	if ($Sway.Checked -match "True") {
+		$arrayApps.Add("*Sway*")
+	}
+	if ($SpeedTest.Checked -match "True") {
+		$arrayApps.Add("*Speed Test*")
+	}
+	if ($Dolby.Checked -match "True") {
+		$arrayApps.Add("*Dolby*")
+		$arrayApps.Add("DolbyLaboratories.DolbyAccess")
+	}
 
-    cls
+	if ($Netflix.Checked -match "True") {
+		$arrayApps.Add("4DF9E0F8.Netflix")
+	}
+
+	cls
 }
 
 FormUnnecessaryApps
@@ -649,8 +670,8 @@ $O1 = New-Object System.Management.Automation.Host.ChoiceDescription "&Libreoffi
 $O2 = New-Object System.Management.Automation.Host.ChoiceDescription "&WPS Office", "WPS Office"
 $O3 = New-Object System.Management.Automation.Host.ChoiceDescription "&Only Office", "Only Office"
 $O4 = New-Object System.Management.Automation.Host.ChoiceDescription "&Free Office", "Free Office"
-$Ooptions = [System.Management.Automation.Host.ChoiceDescription[]]($O0, $O1,$O2,$O3,$O4)
-$officeSuite = $host.ui.PromptForChoice($titleO,$message, $Ooptions, 1)
+$Ooptions = [System.Management.Automation.Host.ChoiceDescription[]]($O0, $O1, $O2, $O3, $O4)
+$officeSuite = $host.ui.PromptForChoice($titleO, $message, $Ooptions, 1)
 
 $titleB = "Web Browser"
 $message = "Choose your internet browser"
@@ -659,7 +680,7 @@ $B1 = New-Object System.Management.Automation.Host.ChoiceDescription "&Brave Bro
 $B2 = New-Object System.Management.Automation.Host.ChoiceDescription "&Vivaldi", "Vivaldi"
 $B3 = New-Object System.Management.Automation.Host.ChoiceDescription "&Mozilla Firefox", "Mozilla Firefox"
 $B4 = New-Object System.Management.Automation.Host.ChoiceDescription "&Google Chrome", "Google Chrome"
-$Boptions = [System.Management.Automation.Host.ChoiceDescription[]]($B0,$B1,$B2,$B3,$B4)
+$Boptions = [System.Management.Automation.Host.ChoiceDescription[]]($B0, $B1, $B2, $B3, $B4)
 $browser = $host.ui.PromptForChoice($titleB, $message, $Boptions, 1)
 
 
@@ -673,47 +694,47 @@ $tweaks = @(
 	"Install7Zip",
 	"InstallNotepadplusplus",
 	"InstallMediaPlayerClassic",
-    "InstallOfficeSuite",
-    "InstallInternetBrowser",
-    "InstallJava",
+	"InstallOfficeSuite",
+	"InstallInternetBrowser",
+	"InstallJava",
 
 	### Windows Apps
 	"DebloatAll",
 
 	### Privacy Tweaks ###
-	"DisableTelemetry",             # "EnableTelemetry",
-	"DisableWiFiSense",             # "EnableWiFiSense",
-	"DisableSmartScreen",         # "EnableSmartScreen",
-	"DisableWebSearch",             # "EnableWebSearch",
-	"DisableAppSuggestions",        # "EnableAppSuggestions",
-	"DisableActivityHistory",       # "EnableActivityHistory",
-	"DisableBackgroundApps",        # "EnableBackgroundApps",
-	"DisableLocationTracking",      # "EnableLocationTracking",
-	"DisableMapUpdates",            # "EnableMapUpdates",
-	"DisableFeedback",              # "EnableFeedback",
-	"DisableTailoredExperiences",   # "EnableTailoredExperiences",
-	"DisableAdvertisingID",         # "EnableAdvertisingID",
-	"DisableCortana",               # "EnableCortana",
-	"DisableErrorReporting",        # "EnableErrorReporting",
-	"SetP2PUpdateLocal",          # "SetP2PUpdateInternet",
-	"DisableDiagTrack",             # "EnableDiagTrack",
-	"DisableWAPPush",               # "EnableWAPPush",
+	"DisableTelemetry", # "EnableTelemetry",
+	"DisableWiFiSense", # "EnableWiFiSense",
+	"DisableSmartScreen", # "EnableSmartScreen",
+	"DisableWebSearch", # "EnableWebSearch",
+	"DisableAppSuggestions", # "EnableAppSuggestions",
+	"DisableActivityHistory", # "EnableActivityHistory",
+	"DisableBackgroundApps", # "EnableBackgroundApps",
+	"DisableLocationTracking", # "EnableLocationTracking",
+	"DisableMapUpdates", # "EnableMapUpdates",
+	"DisableFeedback", # "EnableFeedback",
+	"DisableTailoredExperiences", # "EnableTailoredExperiences",
+	"DisableAdvertisingID", # "EnableAdvertisingID",
+	"DisableCortana", # "EnableCortana",
+	"DisableErrorReporting", # "EnableErrorReporting",
+	"SetP2PUpdateLocal", # "SetP2PUpdateInternet",
+	"DisableDiagTrack", # "EnableDiagTrack",
+	"DisableWAPPush", # "EnableWAPPush",
 
 	### Security Tweaks ###
-	"SetUACLow",                  # "SetUACHigh",
+	"SetUACLow", # "SetUACHigh",
 	# "EnableSharingMappedDrives",  # "DisableSharingMappedDrives",
 	# "DisableAdminShares",           # "EnableAdminShares",
-	"DisableSMB1",                # "EnableSMB1",
+	"DisableSMB1", # "EnableSMB1",
 	# "DisableSMBServer",           # "EnableSMBServer",
 	# "DisableLLMNR",               # "EnableLLMNR",
-	"SetCurrentNetworkPrivate",     # "SetCurrentNetworkPublic",
-	"SetUnknownNetworksPrivate",  # "SetUnknownNetworksPublic",
-	"DisableNetDevicesAutoInst",  # "EnableNetDevicesAutoInst",
+	"SetCurrentNetworkPrivate", # "SetCurrentNetworkPublic",
+	"SetUnknownNetworksPrivate", # "SetUnknownNetworksPublic",
+	"DisableNetDevicesAutoInst", # "EnableNetDevicesAutoInst",
 	"DisableCtrldFolderAccess",	# "EnableCtrldFolderAccess",
 	# "DisableFirewall",            # "EnableFirewall",
 	#"DisableDefender",             #"EnableDefender",
-	"DisableDefenderCloud",       # "EnableDefenderCloud",
-	"EnableF8BootMenu",             # "DisableF8BootMenu",
+	"DisableDefenderCloud", # "EnableDefenderCloud",
+	"EnableF8BootMenu", # "DisableF8BootMenu",
 	#"SetDEPOptOut",                 # "SetDEPOptIn",
 	# "EnableCIMemoryIntegrity",    # "DisableCIMemoryIntegrity",
 	#"DisableScriptHost",            # "EnableScriptHost",
@@ -721,57 +742,57 @@ $tweaks = @(
 	"DisableMeltdownCompatFlag", # "EnableMeltdownCompatFlag"  
 
 	### Service Tweaks ###
-	"DisableUpdateMSRT",          # "EnableUpdateMSRT",
-	"DisableUpdateDriver",        # "EnableUpdateDriver",
-	"DisableUpdateRestart",         # "EnableUpdateRestart",
-	"DisableHomeGroups",          # "EnableHomeGroups",
-	"DisableSharedExperiences",     # "EnableSharedExperiences",
-	"DisableRemoteAssistance",      # "EnableRemoteAssistance",
-	"EnableRemoteDesktop",          # "DisableRemoteDesktop",
-	"DisableAutoplay",              # "EnableAutoplay",
-	"DisableAutorun",               # "EnableAutorun",
-	"DisableStorageSense",        # "EnableStorageSense",
-	"DisableDefragmentation",     # "EnableDefragmentation",
-	"DisableSuperfetch",          # "EnableSuperfetch",
-	"DisableIndexing",            # "EnableIndexing",
-	"SetBIOSTimeUTC",             # "SetBIOSTimeLocal",
-	"DisableHibernation",		# "EnableHibernation",          # 
-	"EnableSleepButton",		# "DisableSleepButton",         
-	"DisableSleepTimeout",        # "EnableSleepTimeout",
+	"DisableUpdateMSRT", # "EnableUpdateMSRT",
+	"DisableUpdateDriver", # "EnableUpdateDriver",
+	"DisableUpdateRestart", # "EnableUpdateRestart",
+	"DisableHomeGroups", # "EnableHomeGroups",
+	"DisableSharedExperiences", # "EnableSharedExperiences",
+	"DisableRemoteAssistance", # "EnableRemoteAssistance",
+	"EnableRemoteDesktop", # "DisableRemoteDesktop",
+	"DisableAutoplay", # "EnableAutoplay",
+	"DisableAutorun", # "EnableAutorun",
+	"DisableStorageSense", # "EnableStorageSense",
+	"DisableDefragmentation", # "EnableDefragmentation",
+	"DisableSuperfetch", # "EnableSuperfetch",
+	"DisableIndexing", # "EnableIndexing",
+	"SetBIOSTimeUTC", # "SetBIOSTimeLocal",
+	"DisableHibernation", # "EnableHibernation",          # 
+	"EnableSleepButton", # "DisableSleepButton",         
+	"DisableSleepTimeout", # "EnableSleepTimeout",
 	# "DisableFastStartup",         # "EnableFastStartup",
 
 	### UI Tweaks ###
-	"DisableActionCenter",          # "EnableActionCenter",
-	"DisableLockScreen",            # "EnableLockScreen",
-	"DisableLockScreenRS1",       # "EnableLockScreenRS1",
+	"DisableActionCenter", # "EnableActionCenter",
+	"DisableLockScreen", # "EnableLockScreen",
+	"DisableLockScreenRS1", # "EnableLockScreenRS1",
 	# "HideNetworkFromLockScreen",    # "ShowNetworkOnLockScreen",
 	# "HideShutdownFromLockScreen",   # "ShowShutdownOnLockScreen",
-	"DisableStickyKeys",            # "EnableStickyKeys",
+	"DisableStickyKeys", # "EnableStickyKeys",
 	"ShowTaskManagerDetails"        # "HideTaskManagerDetails",
-	"ShowFileOperationsDetails",    # "HideFileOperationsDetails",
+	"ShowFileOperationsDetails", # "HideFileOperationsDetails",
 	"DisableFileDeleteConfirm",	# "EnableFileDeleteConfirm",    
 	#"HideTaskbarSearch",
-	"ShowTaskbarSearchIcon",      # "ShowTaskbarSearchBox",
-	"HideTaskView",                 # "ShowTaskView",
+	"ShowTaskbarSearchIcon", # "ShowTaskbarSearchBox",
+	"HideTaskView", # "ShowTaskView",
 	# "ShowSmallTaskbarIcons",        # "ShowLargeTaskbarIcons",
 	# "SetTaskbarCombineWhenFull",    # "SetTaskbarCombineNever",     # "SetTaskbarCombineAlways",
 	# "HideTaskbarPeopleIcon",        # "ShowTaskbarPeopleIcon",
-	"ShowTrayIcons",                # "HideTrayIcons",
-	"DisableSearchAppInStore",      # "EnableSearchAppInStore",
-	"DisableNewAppPrompt",          # "EnableNewAppPrompt",
+	"ShowTrayIcons", # "HideTrayIcons",
+	"DisableSearchAppInStore", # "EnableSearchAppInStore",
+	"DisableNewAppPrompt", # "EnableNewAppPrompt",
 	# "SetControlPanelSmallIcons",  # "SetControlPanelLargeIcons",  # "SetControlPanelCategories",
 	# "SetVisualFXPerformance",     # "SetVisualFXAppearance",
 	# "AddENKeyboard",              # "RemoveENKeyboard",
-	"EnableNumlock",             	# "DisableNumlock",
-	"EnableDarkMode",				# "DisableDarkMode",
+	"EnableNumlock", # "DisableNumlock",
+	"EnableDarkMode", # "DisableDarkMode",
 	"Stop-EdgePDF",
 
 	### Explorer UI Tweaks ###
-	"ShowKnownExtensions",          # "HideKnownExtensions",
+	"ShowKnownExtensions", # "HideKnownExtensions",
 	# "ShowHiddenFiles",              # "HideHiddenFiles",
 	"HideSyncNotifications"         # "ShowSyncNotifications",
 	# "HideRecentShortcuts",          # "ShowRecentShortcuts",
-	"SetExplorerThisPC",            # "SetExplorerQuickAccess",
+	"SetExplorerThisPC", # "SetExplorerQuickAccess",
 	"HideThisPCFromDesktop",	# "ShowThisPCOnDesktop",
 	# "ShowUserFolderOnDesktop",    # "HideUserFolderFromDesktop",
 	# "HideDesktopFromThisPC",        # "ShowDesktopInThisPC",
@@ -780,33 +801,33 @@ $tweaks = @(
 	# "HideDocumentsFromExplorer",  # "ShowDocumentsInExplorer",
 	# "HideDownloadsFromThisPC",      # "ShowDownloadsInThisPC",
 	# "HideDownloadsFromExplorer",  # "ShowDownloadsInExplorer",
-	"HideMusicFromThisPC",          # "ShowMusicInThisPC",
-	"HideMusicFromExplorer",      # "ShowMusicInExplorer",
+	"HideMusicFromThisPC", # "ShowMusicInThisPC",
+	"HideMusicFromExplorer", # "ShowMusicInExplorer",
 	# "HidePicturesFromThisPC",       # "ShowPicturesInThisPC",
 	# "HidePicturesFromExplorer",   # "ShowPicturesInExplorer",
-	"HideVideosFromThisPC",         # "ShowVideosInThisPC",
-	"HideVideosFromExplorer",     # "ShowVideosInExplorer",
-	"Hide3DObjectsFromThisPC",      # "Show3DObjectsInThisPC",
-	"Hide3DObjectsFromExplorer",  # "Show3DObjectsInExplorer",
+	"HideVideosFromThisPC", # "ShowVideosInThisPC",
+	"HideVideosFromExplorer", # "ShowVideosInExplorer",
+	"Hide3DObjectsFromThisPC", # "Show3DObjectsInThisPC",
+	"Hide3DObjectsFromExplorer", # "Show3DObjectsInExplorer",
 	# "DisableThumbnails",          # "EnableThumbnails",
 	# "DisableThumbsDB",              # "EnableThumbsDB",
 
 	### Application Tweaks ###
-	"DisableOneDrive",              # "EnableOneDrive",
-	"UninstallOneDrive",            # "InstallOneDrive",
-	"UninstallMsftBloat",           # "InstallMsftBloat",
-	"UninstallThirdPartyBloat",     # "InstallThirdPartyBloat",
+	"DisableOneDrive", # "EnableOneDrive",
+	"UninstallOneDrive", # "InstallOneDrive",
+	"UninstallMsftBloat", # "InstallMsftBloat",
+	"UninstallThirdPartyBloat", # "InstallThirdPartyBloat",
 	# "UninstallWindowsStore",      # "InstallWindowsStore",
 	# "DisableXboxFeatures",          # "EnableXboxFeatures",
-	"DisableAdobeFlash",            # "EnableAdobeFlash",
-	"InstallMediaPlayer", 		# "UninstallMediaPlayer",
-	"UninstallInternetExplorer",  # "InstallInternetExplorer",
-	"UninstallWorkFolders",       # "InstallWorkFolders",
-	"InstallLinuxSubsystem",      # "UninstallLinuxSubsystem",
+	"DisableAdobeFlash", # "EnableAdobeFlash",
+	"InstallMediaPlayer", # "UninstallMediaPlayer",
+	"UninstallInternetExplorer", # "InstallInternetExplorer",
+	"UninstallWorkFolders", # "InstallWorkFolders",
+	"InstallLinuxSubsystem", # "UninstallLinuxSubsystem",
 	# "InstallHyperV",              # "UninstallHyperV",
-	"SetPhotoViewerAssociation",    # "UnsetPhotoViewerAssociation",
-	"AddPhotoViewerOpenWith",       # "RemovePhotoViewerOpenWith",
-	"InstallPDFPrinter",		# "UninstallPDFPrinter",
+	"SetPhotoViewerAssociation", # "UnsetPhotoViewerAssociation",
+	"AddPhotoViewerOpenWith", # "RemovePhotoViewerOpenWith",
+	"InstallPDFPrinter", # "UninstallPDFPrinter",
 	# "UninstallXPSPrinter",          # "InstallXPSPrinter",
 	# "RemoveFaxPrinter",             # "AddFaxPrinter",
 
@@ -822,11 +843,11 @@ $tweaks = @(
 	"UnpinStartMenuTiles",
 	#"UnpinTaskbarIcons",
 
-    ### Enable Clipboard History ###
-    "EnableClipboardHistory",
+	### Enable Clipboard History ###
+	"EnableClipboardHistory",
 
-    ### Disable Clipboard History ###
-    #"DisableClipboardHistory",
+	### Disable Clipboard History ###
+	#"DisableClipboardHistory",
 
 	### Auxiliary Functions ###
 	"WaitForKey"
@@ -871,38 +892,37 @@ Function InstallMediaPlayerClassic {
 }
 
 Function InstallOfficeSuite {
-    if($officeSuite -ne 0){
-	    Write-Output "Installing the chosen office suite"
-    }
-    switch ($officeSuite)
-    {
-        1{choco install libreoffice-fresh -y}
-        2{choco install wps-office-free -y}
-        3{choco install onlyoffice -y}
-        4{
-            Write-Output "Installing Free Office"
-            $url = "https://www.freeoffice.com/download.php?filename=https://www.softmaker.net/down/freeoffice2018.msi"
-            $outpath = "$PSScriptRoot/FreeOffice.exe"
-            Invoke-WebRequest -Uri $url -OutFile $outpath
-            $wc = New-Object System.Net.WebClient
-            $wc.DownloadFile($url, $outpath)
-            $args = @("Comma","Separated","Arguments")
-            Start-Process -Filepath "$PSScriptRoot/FreeOffice.exe" -ArgumentList $args
+	if ($officeSuite -ne 0) {
+		Write-Output "Installing the chosen office suite"
+	}
+	switch ($officeSuite) {
+		1 { choco install libreoffice-fresh -y }
+		2 { choco install wps-office-free -y }
+		3 { choco install onlyoffice -y }
+		4 {
+			Write-Output "Installing Free Office"
+			$url = "https://www.freeoffice.com/download.php?filename=https://www.softmaker.net/down/freeoffice2018.msi"
+			$outpath = "$PSScriptRoot/FreeOffice.exe"
+			Invoke-WebRequest -Uri $url -OutFile $outpath
+			$wc = New-Object System.Net.WebClient
+			$wc.DownloadFile($url, $outpath)
+			$args = @("Comma", "Separated", "Arguments")
+			Start-Process -Filepath "$PSScriptRoot/FreeOffice.exe" -ArgumentList $args
         
-        }
-    }
+		}
+	}
 }
 
-Function InstallInternetBrowser{
-    if($browser -ne 0){
-	    Write-Output "Installing the chosen Internet Browser"
-    }
-    switch ($browser){
-        1{choco install brave -y}
-        2{choco install vivaldi -y}
-        3{choco install firefox -y}
-        4{choco install googlechrome -y}
-    }
+Function InstallInternetBrowser {
+	if ($browser -ne 0) {
+		Write-Output "Installing the chosen Internet Browser"
+	}
+	switch ($browser) {
+		1 { choco install brave -y }
+		2 { choco install vivaldi -y }
+		3 { choco install firefox -y }
+		4 { choco install googlechrome -y }
+	}
 }
 
 ##########
@@ -1413,7 +1433,8 @@ Function DisableDefender {
 	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name "DisableAntiSpyware" -Type DWord -Value 1
 	If ([System.Environment]::OSVersion.Version.Build -eq 14393) {
 		Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name "WindowsDefender" -ErrorAction SilentlyContinue
-	} ElseIf ([System.Environment]::OSVersion.Version.Build -ge 15063) {
+	}
+ ElseIf ([System.Environment]::OSVersion.Version.Build -ge 15063) {
 		Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name "SecurityHealth" -ErrorAction SilentlyContinue
 	}
 }
@@ -1424,7 +1445,8 @@ Function EnableDefender {
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name "DisableAntiSpyware" -ErrorAction SilentlyContinue
 	If ([System.Environment]::OSVersion.Version.Build -eq 14393) {
 		Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name "WindowsDefender" -Type ExpandString -Value "`"%ProgramFiles%\Windows Defender\MSASCuiL.exe`""
-	} ElseIf ([System.Environment]::OSVersion.Version.Build -ge 15063) {
+	}
+ ElseIf ([System.Environment]::OSVersion.Version.Build -ge 15063) {
 		Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" -Name "SecurityHealth" -Type ExpandString -Value "`"%ProgramFiles%\Windows Defender\MSASCuiL.exe`""
 	}
 }
@@ -1530,14 +1552,14 @@ Function DisableMeltdownCompatFlag {
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\QualityCompat" -Name "cadca5fe-87d3-4b96-b7fb-a231484277cc" -ErrorAction SilentlyContinue
 }
 
-Function EnableClipboardHistory{
+Function EnableClipboardHistory {
 	Write-Output "Enabling Clipboard History"
-    Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "AllowClipboardHistory" -ErrorAction SilentlyContinue
+	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "AllowClipboardHistory" -ErrorAction SilentlyContinue
 }
 
-Function DisableClipboardHistory{
+Function DisableClipboardHistory {
 	Write-Output "Disabling Clipboard History"
-    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "AllowClipboardHistory" -Type DWord -Value 0
+	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "AllowClipboardHistory" -Type DWord -Value 0
 }
 
 ##########
@@ -2136,7 +2158,7 @@ Function SetVisualFXPerformance {
 	Write-Output "Adjusting visual effects for performance..."
 	Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "DragFullWindows" -Type String -Value 0
 	Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "MenuShowDelay" -Type String -Value 0
-	Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "UserPreferencesMask" -Type Binary -Value ([byte[]](144,18,3,128,16,0,0,0))
+	Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "UserPreferencesMask" -Type Binary -Value ([byte[]](144, 18, 3, 128, 16, 0, 0, 0))
 	Set-ItemProperty -Path "HKCU:\Control Panel\Desktop\WindowMetrics" -Name "MinAnimate" -Type String -Value 0
 	Set-ItemProperty -Path "HKCU:\Control Panel\Keyboard" -Name "KeyboardDelay" -Type DWord -Value 0
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ListviewAlphaSelect" -Type DWord -Value 0
@@ -2151,7 +2173,7 @@ Function SetVisualFXAppearance {
 	Write-Output "Adjusting visual effects for appearance..."
 	Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "DragFullWindows" -Type String -Value 1
 	Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "MenuShowDelay" -Type String -Value 400
-	Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "UserPreferencesMask" -Type Binary -Value ([byte[]](158,30,7,128,18,0,0,0))
+	Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "UserPreferencesMask" -Type Binary -Value ([byte[]](158, 30, 7, 128, 18, 0, 0, 0))
 	Set-ItemProperty -Path "HKCU:\Control Panel\Desktop\WindowMetrics" -Name "MinAnimate" -Type String -Value 1
 	Set-ItemProperty -Path "HKCU:\Control Panel\Keyboard" -Name "KeyboardDelay" -Type DWord -Value 1
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ListviewAlphaSelect" -Type DWord -Value 1
@@ -2173,7 +2195,7 @@ Function AddENKeyboard {
 Function RemoveENKeyboard {
 	Write-Output "Removing secondary en-US keyboard..."
 	$langs = Get-WinUserLanguageList
-	Set-WinUserLanguageList ($langs | ? {$_.LanguageTag -ne "en-US"}) -Force
+	Set-WinUserLanguageList ($langs | ? { $_.LanguageTag -ne "en-US" }) -Force
 }
 
 # Enable NumLock after startup
@@ -2568,13 +2590,13 @@ Function EnableThumbsDB {
 
 # Disable OneDrive
 Function DisableOneDrive {
-    if($OneDrive -eq 'Y' -or $OneDrive -eq 'y'){
-	    Write-Output "Disabling OneDrive..."
-	    If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive")) {
-		    New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive" | Out-Null
-	    }
-	    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive" -Name "DisableFileSyncNGSC" -Type DWord -Value 1
-    }
+	if ($OneDrive -eq 'Y' -or $OneDrive -eq 'y') {
+		Write-Output "Disabling OneDrive..."
+		If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive")) {
+			New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive" | Out-Null
+		}
+		Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive" -Name "DisableFileSyncNGSC" -Type DWord -Value 1
+	}
 }
 
 # Enable OneDrive
@@ -2585,28 +2607,28 @@ Function EnableOneDrive {
 
 # Uninstall OneDrive - Not applicable to Server
 Function UninstallOneDrive {
-    if($OneDrive -eq 'Y' -or $OneDrive -eq 'y'){
-	    Write-Output "Uninstalling OneDrive..."
-	    Stop-Process -Name "OneDrive" -ErrorAction SilentlyContinue
-	    Start-Sleep -s 2
-	    $onedrive = "$env:SYSTEMROOT\SysWOW64\OneDriveSetup.exe"
-	    If (!(Test-Path $onedrive)) {
-		    $onedrive = "$env:SYSTEMROOT\System32\OneDriveSetup.exe"
-	    }
-	    Start-Process $onedrive "/uninstall" -NoNewWindow -Wait
-	    Start-Sleep -s 2
-	    Stop-Process -Name "explorer" -ErrorAction SilentlyContinue
-	    Start-Sleep -s 2
-	    Remove-Item -Path "$env:USERPROFILE\OneDrive" -Force -Recurse -ErrorAction SilentlyContinue
-	    Remove-Item -Path "$env:LOCALAPPDATA\Microsoft\OneDrive" -Force -Recurse -ErrorAction SilentlyContinue
-	    Remove-Item -Path "$env:PROGRAMDATA\Microsoft OneDrive" -Force -Recurse -ErrorAction SilentlyContinue
-	    Remove-Item -Path "$env:SYSTEMDRIVE\OneDriveTemp" -Force -Recurse -ErrorAction SilentlyContinue
-	    If (!(Test-Path "HKCR:")) {
-		    New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
-	    }
-    	Remove-Item -Path "HKCR:\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" -Recurse -ErrorAction SilentlyContinue
-	    Remove-Item -Path "HKCR:\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" -Recurse -ErrorAction SilentlyContinue
-    }
+	if ($OneDrive -eq 'Y' -or $OneDrive -eq 'y') {
+		Write-Output "Uninstalling OneDrive..."
+		Stop-Process -Name "OneDrive" -ErrorAction SilentlyContinue
+		Start-Sleep -s 2
+		$onedrive = "$env:SYSTEMROOT\SysWOW64\OneDriveSetup.exe"
+		If (!(Test-Path $onedrive)) {
+			$onedrive = "$env:SYSTEMROOT\System32\OneDriveSetup.exe"
+		}
+		Start-Process $onedrive "/uninstall" -NoNewWindow -Wait
+		Start-Sleep -s 2
+		Stop-Process -Name "explorer" -ErrorAction SilentlyContinue
+		Start-Sleep -s 2
+		Remove-Item -Path "$env:USERPROFILE\OneDrive" -Force -Recurse -ErrorAction SilentlyContinue
+		Remove-Item -Path "$env:LOCALAPPDATA\Microsoft\OneDrive" -Force -Recurse -ErrorAction SilentlyContinue
+		Remove-Item -Path "$env:PROGRAMDATA\Microsoft OneDrive" -Force -Recurse -ErrorAction SilentlyContinue
+		Remove-Item -Path "$env:SYSTEMDRIVE\OneDriveTemp" -Force -Recurse -ErrorAction SilentlyContinue
+		If (!(Test-Path "HKCR:")) {
+			New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
+		}
+		Remove-Item -Path "HKCR:\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" -Recurse -ErrorAction SilentlyContinue
+		Remove-Item -Path "HKCR:\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" -Recurse -ErrorAction SilentlyContinue
+	}
 }
 
 # Install OneDrive - Not applicable to Server
@@ -2622,9 +2644,9 @@ Function InstallOneDrive {
 # Uninstall default Microsoft applications
 Function UninstallMsftBloat {
 	Write-Output "Uninstalling default Microsoft applications..."
-    foreach ($app in $arrayApps){
-        Get-AppxPackage $app | Remove-AppxPackage
-    }
+	foreach ($app in $arrayApps) {
+		Get-AppxPackage $app | Remove-AppxPackage
+	}
 	Get-AppxPackage "Microsoft.CommsPhone" | Remove-AppxPackage
 	Get-AppxPackage "Microsoft.ConnectivityStore" | Remove-AppxPackage
 	Get-AppxPackage "Microsoft.RemoteDesktop" | Remove-AppxPackage
@@ -2634,44 +2656,44 @@ Function UninstallMsftBloat {
 # Install default Microsoft applications
 Function InstallMsftBloat {
 	Write-Output "Installing default Microsoft applications..."
-	Get-AppxPackage -AllUsers "Microsoft.3DBuilder" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.AppConnector" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.BingFinance" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.BingNews" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.BingSports" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.BingTranslator" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.BingWeather" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.CommsPhone" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.ConnectivityStore" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.GetHelp" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.Getstarted" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.Messaging" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.Microsoft3DViewer" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.MicrosoftOfficeHub" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.MicrosoftPowerBIForWindows" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.MicrosoftSolitaireCollection" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.MicrosoftStickyNotes" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.MinecraftUWP" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.MSPaint" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.NetworkSpeedTest" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.Office.OneNote" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.Office.Sway" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.OneConnect" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.People" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.Print3D" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.RemoteDesktop" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.SkypeApp" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.Wallet" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.WindowsAlarms" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.WindowsCamera" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.windowscommunicationsapps" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.WindowsFeedbackHub" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.WindowsMaps" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.WindowsPhone" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.Windows.Photos" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.WindowsSoundRecorder" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.ZuneMusic" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.ZuneVideo" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
+	Get-AppxPackage -AllUsers "Microsoft.3DBuilder" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "Microsoft.AppConnector" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "Microsoft.BingFinance" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "Microsoft.BingNews" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "Microsoft.BingSports" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "Microsoft.BingTranslator" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "Microsoft.BingWeather" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "Microsoft.CommsPhone" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "Microsoft.ConnectivityStore" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "Microsoft.GetHelp" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "Microsoft.Getstarted" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "Microsoft.Messaging" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "Microsoft.Microsoft3DViewer" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "Microsoft.MicrosoftOfficeHub" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "Microsoft.MicrosoftPowerBIForWindows" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "Microsoft.MicrosoftSolitaireCollection" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "Microsoft.MicrosoftStickyNotes" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "Microsoft.MinecraftUWP" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "Microsoft.MSPaint" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "Microsoft.NetworkSpeedTest" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "Microsoft.Office.OneNote" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "Microsoft.Office.Sway" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "Microsoft.OneConnect" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "Microsoft.People" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "Microsoft.Print3D" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "Microsoft.RemoteDesktop" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "Microsoft.SkypeApp" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "Microsoft.Wallet" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "Microsoft.WindowsAlarms" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "Microsoft.WindowsCamera" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "Microsoft.windowscommunicationsapps" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "Microsoft.WindowsFeedbackHub" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "Microsoft.WindowsMaps" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "Microsoft.WindowsPhone" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "Microsoft.Windows.Photos" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "Microsoft.WindowsSoundRecorder" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "Microsoft.ZuneMusic" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "Microsoft.ZuneVideo" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
 }
 # In case you have removed them for good, you can try to restore the files using installation medium as follows
 # New-Item C:\Mnt -Type Directory | Out-Null
@@ -2683,33 +2705,25 @@ Function InstallMsftBloat {
 # Uninstall default third party applications
 function UninstallThirdPartyBloat {
 	Write-Output "Uninstalling default third party applications..."
+	foreach ($app in $arrayApps) {
+		Get-AppxPackage $app | Remove-AppxPackage
+	}
 	Get-AppxPackage "2414FC7A.Viber" | Remove-AppxPackage
 	Get-AppxPackage "41038Axilesoft.ACGMediaPlayer" | Remove-AppxPackage
-	Get-AppxPackage "46928bounde.EclipseManager" | Remove-AppxPackage
-	Get-AppxPackage "4DF9E0F8.Netflix" | Remove-AppxPackage
 	Get-AppxPackage "64885BlueEdge.OneCalendar" | Remove-AppxPackage
 	Get-AppxPackage "7EE7776C.LinkedInforWindows" | Remove-AppxPackage
 	Get-AppxPackage "828B5831.HiddenCityMysteryofShadows" | Remove-AppxPackage
 	Get-AppxPackage "89006A2E.AutodeskSketchBook" | Remove-AppxPackage
-	Get-AppxPackage "9E2F88E3.Twitter" | Remove-AppxPackage
 	Get-AppxPackage "A278AB0D.DisneyMagicKingdoms" | Remove-AppxPackage
 	Get-AppxPackage "A278AB0D.MarchofEmpires" | Remove-AppxPackage
-	Get-AppxPackage "ActiproSoftwareLLC.562882FEEB491" | Remove-AppxPackage
-	Get-AppxPackage "AdobeSystemsIncorporated.AdobePhotoshopExpress" | Remove-AppxPackage
 	Get-AppxPackage "CAF9E577.Plex" | Remove-AppxPackage
 	Get-AppxPackage "D52A8D61.FarmVille2CountryEscape" | Remove-AppxPackage
-	Get-AppxPackage "D5EA27B7.Duolingo-LearnLanguagesforFree" | Remove-AppxPackage
 	Get-AppxPackage "DB6EA5DB.CyberLinkMediaSuiteEssentials" | Remove-AppxPackage
 	Get-AppxPackage "DolbyLaboratories.DolbyAccess" | Remove-AppxPackage
 	Get-AppxPackage "Drawboard.DrawboardPDF" | Remove-AppxPackage
-	Get-AppxPackage "Facebook.Facebook" | Remove-AppxPackage
 	Get-AppxPackage "flaregamesGmbH.RoyalRevolt2" | Remove-AppxPackage
 	Get-AppxPackage "GAMELOFTSA.Asphalt8Airborne" | Remove-AppxPackage
 	Get-AppxPackage "KeeperSecurityInc.Keeper" | Remove-AppxPackage
-	Get-AppxPackage "king.com.BubbleWitch3Saga" | Remove-AppxPackage
-	Get-AppxPackage "king.com.CandyCrushSodaSaga" | Remove-AppxPackage
-	Get-AppxPackage "PandoraMediaInc.29680B314EFC2" | Remove-AppxPackage
-	Get-AppxPackage "SpotifyAB.SpotifyMusic" | Remove-AppxPackage
 	Get-AppxPackage "WinZipComputing.WinZipUniversal" | Remove-AppxPackage
 	Get-AppxPackage "XINGAG.XING" | Remove-AppxPackage
 }
@@ -2717,35 +2731,35 @@ function UninstallThirdPartyBloat {
 # Install default third party applications
 Function InstallThirdPartyBloat {
 	Write-Output "Installing default third party applications..."
-	Get-AppxPackage -AllUsers "2414FC7A.Viber" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "41038Axilesoft.ACGMediaPlayer" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "46928bounde.EclipseManager" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "4DF9E0F8.Netflix" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "64885BlueEdge.OneCalendar" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "7EE7776C.LinkedInforWindows" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "828B5831.HiddenCityMysteryofShadows" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "89006A2E.AutodeskSketchBook" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "9E2F88E3.Twitter" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "A278AB0D.DisneyMagicKingdoms" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "A278AB0D.MarchofEmpires" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "ActiproSoftwareLLC.562882FEEB491" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "AdobeSystemsIncorporated.AdobePhotoshopExpress" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "CAF9E577.Plex" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "D52A8D61.FarmVille2CountryEscape" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "D5EA27B7.Duolingo-LearnLanguagesforFree" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "DB6EA5DB.CyberLinkMediaSuiteEssentials" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "DolbyLaboratories.DolbyAccess" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Drawboard.DrawboardPDF" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Facebook.Facebook" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "flaregamesGmbH.RoyalRevolt2" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "GAMELOFTSA.Asphalt8Airborne" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "KeeperSecurityInc.Keeper" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "king.com.BubbleWitch3Saga" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "king.com.CandyCrushSodaSaga" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "PandoraMediaInc.29680B314EFC2" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "SpotifyAB.SpotifyMusic" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "WinZipComputing.WinZipUniversal" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "XINGAG.XING" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
+	Get-AppxPackage -AllUsers "2414FC7A.Viber" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "41038Axilesoft.ACGMediaPlayer" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "46928bounde.EclipseManager" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "4DF9E0F8.Netflix" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "64885BlueEdge.OneCalendar" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "7EE7776C.LinkedInforWindows" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "828B5831.HiddenCityMysteryofShadows" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "89006A2E.AutodeskSketchBook" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "9E2F88E3.Twitter" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "A278AB0D.DisneyMagicKingdoms" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "A278AB0D.MarchofEmpires" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "ActiproSoftwareLLC.562882FEEB491" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "AdobeSystemsIncorporated.AdobePhotoshopExpress" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "CAF9E577.Plex" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "D52A8D61.FarmVille2CountryEscape" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "D5EA27B7.Duolingo-LearnLanguagesforFree" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "DB6EA5DB.CyberLinkMediaSuiteEssentials" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "DolbyLaboratories.DolbyAccess" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "Drawboard.DrawboardPDF" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "Facebook.Facebook" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "flaregamesGmbH.RoyalRevolt2" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "GAMELOFTSA.Asphalt8Airborne" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "KeeperSecurityInc.Keeper" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "king.com.BubbleWitch3Saga" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "king.com.CandyCrushSodaSaga" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "PandoraMediaInc.29680B314EFC2" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "SpotifyAB.SpotifyMusic" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "WinZipComputing.WinZipUniversal" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "XINGAG.XING" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
 }
 
 # Uninstall Windows Store
@@ -2758,8 +2772,8 @@ Function UninstallWindowsStore {
 # Install Windows Store
 Function InstallWindowsStore {
 	Write-Output "Installing Windows Store..."
-	Get-AppxPackage -AllUsers "Microsoft.DesktopAppInstaller" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.WindowsStore" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
+	Get-AppxPackage -AllUsers "Microsoft.DesktopAppInstaller" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "Microsoft.WindowsStore" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
 }
 
 # Disable Xbox features
@@ -2780,11 +2794,11 @@ Function DisableXboxFeatures {
 # Enable Xbox features
 Function EnableXboxFeatures {
 	Write-Output "Enabling Xbox features..."
-	Get-AppxPackage -AllUsers "Microsoft.XboxApp" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.XboxIdentityProvider" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.XboxSpeechToTextOverlay" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.XboxGameOverlay" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.Xbox.TCUI" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
+	Get-AppxPackage -AllUsers "Microsoft.XboxApp" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "Microsoft.XboxIdentityProvider" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "Microsoft.XboxSpeechToTextOverlay" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "Microsoft.XboxGameOverlay" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
+	Get-AppxPackage -AllUsers "Microsoft.Xbox.TCUI" | ForEach { Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml" }
 	Set-ItemProperty -Path "HKCU:\System\GameConfigStore" -Name "GameDVR_Enabled" -Type DWord -Value 1
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\GameDVR" -Name "AllowGameDVR" -ErrorAction SilentlyContinue
 }
@@ -2871,7 +2885,8 @@ Function InstallHyperV {
 	Write-Output "Installing Hyper-V..."
 	If ((Get-WmiObject -Class "Win32_OperatingSystem").Caption -like "*Server*") {
 		Install-WindowsFeature -Name "Hyper-V" -IncludeManagementTools -WarningAction SilentlyContinue | Out-Null
-	} Else {
+	}
+ Else {
 		Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Hyper-V-All" -NoRestart -WarningAction SilentlyContinue | Out-Null
 	}
 }
@@ -2881,7 +2896,8 @@ Function UninstallHyperV {
 	Write-Output "Uninstalling Hyper-V..."
 	If ((Get-WmiObject -Class "Win32_OperatingSystem").Caption -like "*Server*") {
 		Uninstall-WindowsFeature -Name "Hyper-V" -IncludeManagementTools -WarningAction SilentlyContinue | Out-Null
-	} Else {
+	}
+ Else {
 		Disable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Hyper-V-All" -NoRestart -WarningAction SilentlyContinue | Out-Null
 	}
 }
@@ -3084,9 +3100,10 @@ Function UnpinStartMenuTiles {
 			$data = $data.Substring(0, $data.IndexOf(",0,202,30") + 9) + ",0,202,80,0,0"
 			Set-ItemProperty -Path "$($_.PsPath)\Current" -Name "Data" -Type Binary -Value $data.Split(",")
 		}
-	} ElseIf ([System.Environment]::OSVersion.Version.Build -eq 17133) {
+	}
+ ElseIf ([System.Environment]::OSVersion.Version.Build -eq 17133) {
 		$key = Get-ChildItem -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\CloudStore\Store\Cache\DefaultAccount" -Recurse | Where-Object { $_ -like "*start.tilegrid`$windows.data.curatedtilecollection.tilecollection\Current" }
-		$data = (Get-ItemProperty -Path $key.PSPath -Name "Data").Data[0..25] + ([byte[]](202,50,0,226,44,1,1,0,0))
+		$data = (Get-ItemProperty -Path $key.PSPath -Name "Data").Data[0..25] + ([byte[]](202, 50, 0, 226, 44, 1, 1, 0, 0))
 		Set-ItemProperty -Path $key.PSPath -Name "Data" -Type Binary -Value $data
 	}
 }
@@ -3129,15 +3146,15 @@ Function Restart {
 ###########
 
 Function EnableDarkMode {
-    if(($darkMode -eq "Y") -or ($darkMode -eq "y")){
-         Write-Output "Enabling Dark Mode"
-	     Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name AppsUseLightTheme -Value 0 
-      }
+	if (($darkMode -eq "Y") -or ($darkMode -eq "y")) {
+		Write-Output "Enabling Dark Mode"
+		Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name AppsUseLightTheme -Value 0 
+	}
 
 }
 
 Function DisableDarkMode {
-    Write-Output "Disabling Dark Mode"
+	Write-Output "Disabling Dark Mode"
 	Remove-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name AppsUseLightTheme
 }
 
@@ -3147,35 +3164,35 @@ Function DisableDarkMode {
 
 Function Stop-EdgePDF {
     
-    #Stops edge from taking over as the default .PDF viewer    
-    Write-Output "Stopping Edge from taking over as the default .PDF viewer"
-    $NoPDF = "HKCR:\.pdf"
-    $NoProgids = "HKCR:\.pdf\OpenWithProgids"
-    $NoWithList = "HKCR:\.pdf\OpenWithList" 
-    If (!(Get-ItemProperty $NoPDF  NoOpenWith)) {
-        New-ItemProperty $NoPDF NoOpenWith 
-    }        
-    If (!(Get-ItemProperty $NoPDF  NoStaticDefaultVerb)) {
-        New-ItemProperty $NoPDF  NoStaticDefaultVerb 
-    }        
-    If (!(Get-ItemProperty $NoProgids  NoOpenWith)) {
-        New-ItemProperty $NoProgids  NoOpenWith 
-    }        
-    If (!(Get-ItemProperty $NoProgids  NoStaticDefaultVerb)) {
-        New-ItemProperty $NoProgids  NoStaticDefaultVerb 
-    }        
-    If (!(Get-ItemProperty $NoWithList  NoOpenWith)) {
-        New-ItemProperty $NoWithList  NoOpenWith
-    }        
-    If (!(Get-ItemProperty $NoWithList  NoStaticDefaultVerb)) {
-        New-ItemProperty $NoWithList  NoStaticDefaultVerb 
-    }
+	#Stops edge from taking over as the default .PDF viewer    
+	Write-Output "Stopping Edge from taking over as the default .PDF viewer"
+	$NoPDF = "HKCR:\.pdf"
+	$NoProgids = "HKCR:\.pdf\OpenWithProgids"
+	$NoWithList = "HKCR:\.pdf\OpenWithList" 
+	If (!(Get-ItemProperty $NoPDF  NoOpenWith)) {
+		New-ItemProperty $NoPDF NoOpenWith 
+	}        
+	If (!(Get-ItemProperty $NoPDF  NoStaticDefaultVerb)) {
+		New-ItemProperty $NoPDF  NoStaticDefaultVerb 
+	}        
+	If (!(Get-ItemProperty $NoProgids  NoOpenWith)) {
+		New-ItemProperty $NoProgids  NoOpenWith 
+	}        
+	If (!(Get-ItemProperty $NoProgids  NoStaticDefaultVerb)) {
+		New-ItemProperty $NoProgids  NoStaticDefaultVerb 
+	}        
+	If (!(Get-ItemProperty $NoWithList  NoOpenWith)) {
+		New-ItemProperty $NoWithList  NoOpenWith
+	}        
+	If (!(Get-ItemProperty $NoWithList  NoStaticDefaultVerb)) {
+		New-ItemProperty $NoWithList  NoStaticDefaultVerb 
+	}
     
-    #Appends an underscore '_' to the Registry key for Edge
-    $Edge = "HKCR:\AppXd4nrz8ff68srnhf9t5a8sbjyar1cr723_"
-    If (Test-Path $Edge) {
-        Set-Item $Edge AppXd4nrz8ff68srnhf9t5a8sbjyar1cr723_ 
-    }
+	#Appends an underscore '_' to the Registry key for Edge
+	$Edge = "HKCR:\AppXd4nrz8ff68srnhf9t5a8sbjyar1cr723_"
+	If (Test-Path $Edge) {
+		Set-Item $Edge AppXd4nrz8ff68srnhf9t5a8sbjyar1cr723_ 
+	}
 }
 
 Function CreateRestorePoint {
@@ -3186,67 +3203,67 @@ Function CreateRestorePoint {
 
 Function DebloatAll {
 
-        $Bloatware = @(
+	$Bloatware = @(
 
-        #Unnecessary Windows 10 AppX Apps
-        "Microsoft.BingNews"
-        "Microsoft.GetHelp"
-        "Microsoft.Getstarted"
-        "Microsoft.Messaging"
-        "Microsoft.Microsoft3DViewer"
-        "Microsoft.MicrosoftSolitaireCollection"
-        "Microsoft.NetworkSpeedTest"
-        "Microsoft.News"
-        "Microsoft.Office.Lens"
-        "Microsoft.Office.Sway"
-        "Microsoft.OneConnect"
-        "Microsoft.People"
-        "Microsoft.Print3D"
-        "Microsoft.SkypeApp"
-        "Microsoft.StorePurchaseApp"
-        "Microsoft.Whiteboard"
-        "Microsoft.WindowsAlarms"
-        "Microsoft.windowscommunicationsapps"
-        "Microsoft.WindowsFeedbackHub"
-        "Microsoft.WindowsMaps"
-        "Microsoft.WindowsSoundRecorder"
-        "Microsoft.ZuneMusic"
-        "Microsoft.ZuneVideo"
+		#Unnecessary Windows 10 AppX Apps
+		"Microsoft.BingNews"
+		"Microsoft.GetHelp"
+		"Microsoft.Getstarted"
+		"Microsoft.Messaging"
+		"Microsoft.Microsoft3DViewer"
+		"Microsoft.MicrosoftSolitaireCollection"
+		"Microsoft.NetworkSpeedTest"
+		"Microsoft.News"
+		"Microsoft.Office.Lens"
+		"Microsoft.Office.Sway"
+		"Microsoft.OneConnect"
+		"Microsoft.People"
+		"Microsoft.Print3D"
+		"Microsoft.SkypeApp"
+		"Microsoft.StorePurchaseApp"
+		"Microsoft.Whiteboard"
+		"Microsoft.WindowsAlarms"
+		"Microsoft.windowscommunicationsapps"
+		"Microsoft.WindowsFeedbackHub"
+		"Microsoft.WindowsMaps"
+		"Microsoft.WindowsSoundRecorder"
+		"Microsoft.ZuneMusic"
+		"Microsoft.ZuneVideo"
 
-        #Sponsored Windows 10 AppX Apps
-        #Add sponsored/featured apps to remove in the "*AppName*" format
-        "*EclipseManager*"
-        "*ActiproSoftwareLLC*"
-        "*AdobeSystemsIncorporated.AdobePhotoshopExpress*"
-        "*Duolingo-LearnLanguagesforFree*"
-        "*PandoraMediaInc*"
-        "*CandyCrush*"
-        "*BubbleWitch3Saga*"
-        "*Wunderlist*"
-        "*Flipboard*"
-        "*Twitter*"
-        "*Facebook*"
-        "*Spotify*"
-        "*Royal Revolt*"
-        "*Sway*"
-        "*Speed Test*"
-        "*Dolby*"
-        #Optional: Typically not removed but you can if you need to for some reason
-        #"*Microsoft.Advertising.Xaml_10.1712.5.0_x64__8wekyb3d8bbwe*"
-        #"*Microsoft.Advertising.Xaml_10.1712.5.0_x86__8wekyb3d8bbwe*"
-        #"*Microsoft.BingWeather*"
-        #"*Microsoft.MSPaint*"
-        #"*Microsoft.MicrosoftStickyNotes*"
-        #"*Microsoft.Windows.Photos*"
-        #"*Microsoft.WindowsCalculator*"
-        #"*Microsoft.WindowsStore*"
-    )
+		#Sponsored Windows 10 AppX Apps
+		#Add sponsored/featured apps to remove in the "*AppName*" format
+		"*EclipseManager*"
+		"*ActiproSoftwareLLC*"
+		"*AdobeSystemsIncorporated.AdobePhotoshopExpress*"
+		"*Duolingo-LearnLanguagesforFree*"
+		"*PandoraMediaInc*"
+		"*CandyCrush*"
+		"*BubbleWitch3Saga*"
+		"*Wunderlist*"
+		"*Flipboard*"
+		"*Twitter*"
+		"*Facebook*"
+		"*Spotify*"
+		"*Royal Revolt*"
+		"*Sway*"
+		"*Speed Test*"
+		"*Dolby*"
+		#Optional: Typically not removed but you can if you need to for some reason
+		#"*Microsoft.Advertising.Xaml_10.1712.5.0_x64__8wekyb3d8bbwe*"
+		#"*Microsoft.Advertising.Xaml_10.1712.5.0_x86__8wekyb3d8bbwe*"
+		#"*Microsoft.BingWeather*"
+		#"*Microsoft.MSPaint*"
+		#"*Microsoft.MicrosoftStickyNotes*"
+		#"*Microsoft.Windows.Photos*"
+		#"*Microsoft.WindowsCalculator*"
+		#"*Microsoft.WindowsStore*"
+	)
     
-    foreach ($Bloat in $arrayApps) {
-        Get-AppxPackage -Name $Bloat| Remove-AppxPackage
-        Get-AppxProvisionedPackage -Online | Where-Object DisplayName -like $Bloat | Remove-AppxProvisionedPackage -Online
-        Write-Output "Trying to remove $Bloat."
-    }
+	foreach ($Bloat in $arrayApps) {
+		Get-AppxPackage -Name $Bloat | Remove-AppxPackage
+		Get-AppxProvisionedPackage -Online | Where-Object DisplayName -like $Bloat | Remove-AppxProvisionedPackage -Online
+		Write-Output "Trying to remove $Bloat."
+	}
 }
 
 ##########
