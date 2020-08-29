@@ -650,7 +650,7 @@ $O2 = New-Object System.Management.Automation.Host.ChoiceDescription "&WPS Offic
 $O3 = New-Object System.Management.Automation.Host.ChoiceDescription "&Only Office", "Only Office"
 $O4 = New-Object System.Management.Automation.Host.ChoiceDescription "&Free Office", "Free Office"
 $Ooptions = [System.Management.Automation.Host.ChoiceDescription[]]($O0, $O1,$O2,$O3,$O4)
-$officeSuite=$host.UI.PromptForChoice($titleO,$message, $Ooptions, $O0)
+$officeSuite = $host.ui.PromptForChoice($titleO,$message, $Ooptions, 1)
 
 $titleB = "Web Browser"
 $message = "Choose your internet browser"
@@ -660,7 +660,7 @@ $B2 = New-Object System.Management.Automation.Host.ChoiceDescription "&Vivaldi",
 $B3 = New-Object System.Management.Automation.Host.ChoiceDescription "&Mozilla Firefox", "Mozilla Firefox"
 $B4 = New-Object System.Management.Automation.Host.ChoiceDescription "&Google Chrome", "Google Chrome"
 $Boptions = [System.Management.Automation.Host.ChoiceDescription[]]($B0,$B1,$B2,$B3,$B4)
-$browser=$host.UI.PromptForChoice($titleB, $message, $Boptions, $B0)
+$browser = $host.ui.PromptForChoice($titleB, $message, $Boptions, 1)
 
 
 # Default preset
