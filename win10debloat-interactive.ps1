@@ -38,7 +38,7 @@ Function FormUnnecessaryApps{
     $Form = New-Object System.Windows.Forms.Form
     $Form.width = 700
     $Form.height = 900
-    $Form.Text = ”Deselect the Unnecessary Windows 10 AppX Apps you want do NOT want to uninstall.”
+    $Form.Text = "Deselect the Unnecessary Windows 10 AppX Apps you want do NOT want to uninstall."
  
     # Set the font of the text to be used within the form
     $Font = New-Object System.Drawing.Font("Times New Roman",12)
@@ -431,7 +431,7 @@ Function FormSponsoredApps{
     $Form = New-Object System.Windows.Forms.Form
     $Form.width = 700
     $Form.height = 600
-    $Form.Text = ”Deselect the Sponsored Windows 10 Apps you want do NOT want to uninstall.”
+    $Form.Text = "Deselect the Sponsored Windows 10 Apps you want do NOT want to uninstall."
  
     # Set the font of the text to be used within the form
     $Font = New-Object System.Drawing.Font("Times New Roman",12)
@@ -642,6 +642,7 @@ $darkMode = Read-Host 'Do you want to enable darkmode? Y/N'
 $enableClipboard = Read-Host 'Do you want to enable Clipboard History? Y/N'
 
 
+$titleO = "Office Suite"
 $message = "Choose your office suite"
 $O0 = New-Object System.Management.Automation.Host.ChoiceDescription "&No Office Suite", "No Office Suite"
 $O1 = New-Object System.Management.Automation.Host.ChoiceDescription "&Libreoffice", "Libreoffice"
@@ -649,9 +650,9 @@ $O2 = New-Object System.Management.Automation.Host.ChoiceDescription "&WPS Offic
 $O3 = New-Object System.Management.Automation.Host.ChoiceDescription "&Only Office", "Only Office"
 $O4 = New-Object System.Management.Automation.Host.ChoiceDescription "&Free Office", "Free Office"
 $Ooptions = [System.Management.Automation.Host.ChoiceDescription[]]($O0, $O1,$O2,$O3,$O4)
-$officeSuite=$host.UI.PromptForChoice($message, $Ooptions, 1)
+$officeSuite=$host.UI.PromptForChoice($titleO,$message, $Ooptions, $O0)
 
-
+$titleB = "Web Browser"
 $message = "Choose your internet browser"
 $B0 = New-Object System.Management.Automation.Host.ChoiceDescription "&No Internet Browser", "No Internet Browser"
 $B1 = New-Object System.Management.Automation.Host.ChoiceDescription "&Brave Browser", "Brave Browser"
@@ -659,7 +660,7 @@ $B2 = New-Object System.Management.Automation.Host.ChoiceDescription "&Vivaldi",
 $B3 = New-Object System.Management.Automation.Host.ChoiceDescription "&Mozilla Firefox", "Mozilla Firefox"
 $B4 = New-Object System.Management.Automation.Host.ChoiceDescription "&Google Chrome", "Google Chrome"
 $Boptions = [System.Management.Automation.Host.ChoiceDescription[]]($B0,$B1,$B2,$B3,$B4)
-$browser=$host.UI.PromptForChoice($message, $Boptions, 1)
+$browser=$host.UI.PromptForChoice($titleB, $message, $Boptions, $B0)
 
 
 # Default preset
