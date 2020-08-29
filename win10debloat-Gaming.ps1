@@ -28,7 +28,7 @@
 #
 ##########
 
-$playnite = Read-Host 'Do you want to install PlayNite? Playnite is an open source video game library manager with one simple goal: To provide a unified interface for all of your games. Y/N'
+$global:playnite = Read-Host 'Do you want to install PlayNite? Playnite is an open source video game library manager with one simple goal: To provide a unified interface for all of your games. Y/N'
 
 # Default preset
 $tweaks = @(
@@ -210,8 +210,12 @@ $tweaks = @(
 Function InstallTitusProgs {
 	Write-Output "Installing Chocolatey"
 	Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-	choco install chocolatey-core.extension -y
-	Write-Output "Running O&O Shutup with Recommended Settings"
+	$InstallDir='C:\Users\Public\Chocolatey'
+    New-Item -Path $InstallDir -ItemType Directory
+    $env:ChocolateyInstall="$InstallDir"
+    choco install chocolatey-core.extension -y
+	
+    Write-Output "Running O&O Shutup with Recommended Settings"
 	Import-Module BitsTransfer
 	Start-BitsTransfer -Source "https://raw.githubusercontent.com/ChrisTitusTech/win10script/master/ooshutup10.cfg" -Destination ooshutup10.cfg
 	Start-BitsTransfer -Source "https://dl5.oo-software.com/files/ooshutup10/OOSU10.exe" -Destination OOSU10.exe
@@ -297,7 +301,7 @@ Function InstallLegendary {
 }
 
 Function InstallPlaynite{
-    if(($playnite -eq "Y") -or ($playnite -eq "y")){
+    if(($global:playnite -eq "Y") -or ($global:playnite -eq "y")){
 	    Write-Output "Installing Playnite"
         [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
