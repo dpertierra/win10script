@@ -43,9 +43,9 @@ $tweaks = @(
 	"InstallJava",
 	"InstallNotepadplusplus",
 	"InstallMediaPlayerClassic",
-    "InstallGraphicsCardApp",
-    "InstallLegendary",
-    "InstallPlaynite",
+    	"InstallGraphicsCardApp",
+    	"InstallLegendary",
+    	"InstallPlaynite",
 
 	### Windows Apps
 	"DebloatAll",
@@ -103,7 +103,7 @@ $tweaks = @(
 	"DisableStorageSense",        # "EnableStorageSense",
 	"DisableDefragmentation",     # "EnableDefragmentation",
 	"DisableSuperfetch",          # "EnableSuperfetch",
-	"DisableIndexing",            # "EnableIndexing",
+	#"DisableIndexing",            # "EnableIndexing", Disabling Indexing breaks the search function you won't be able to search apps 
 	"SetBIOSTimeUTC",             # "SetBIOSTimeLocal",
 	"DisableHibernation",		# "EnableHibernation",          # 
 	"EnableSleepButton",		# "DisableSleepButton",         
