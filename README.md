@@ -9,7 +9,7 @@ This is the Ultimate Windows 10 Script from a creation from multiple debloat scr
 	
 ## Run Instructions
    1. Right click on the windows logo
-   2. Click on Powershell (Administrator)
+   2. Click on Windows Powershell (Admin)
    3. Copy the one command run for the script you want
    4. Paste that command in the powershell window
    5. Press enter
