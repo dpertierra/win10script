@@ -4,17 +4,13 @@
 # Primary Author Source: https://github.com/Disassembler0/Win10-Initial-Setup-Script
 # Tweaked Source: https://gist.github.com/alirobe/7f3b34ad89a159e6daa1/
 #
-#    If you're a power user looking to tweak your machinea, or doing larger roll-out.. 
-#    Use the @Disassembler0 script instead. It'll probably be more up-to-date than mine:
-#    https://github.com/Disassembler0/Win10-Initial-Setup-Script
-# 
 #    Note from author: Never run scripts without reading them & understanding what they do.
 #
 #	Addition: One command to rule them all, One command to find it, and One command to Run it! 
 #
-#     > powershell -nop -c "iex(New-Object Net.WebClient).DownloadString('https://git.io/JJgmB')"
+#     > powershell -nop -c "iex(New-Object Net.WebClient).DownloadString('https://git.io/JJ8R4')"
 #
-#	Chris Titus Additions:
+#	Chris Titus Tech Additions:
 #
 #	- Dark Mode
 #	- One Command to launch and run
@@ -22,9 +18,8 @@
 #	- O&O Shutup10 CFG and Run
 #	- Added Install Programs
 #	- Added Debloat Microsoft Store Apps
-#  
-#	Diego Pertierra
-#	- Renable Windows Defender
+#	- Added Confirm Menu for Adobe and Brave Browser
+#	- Changed Default Apps to Notepad++, Brave, Irfanview, and more using XML Import feature
 #
 ##########
 # Default preset
@@ -32,12 +27,17 @@ $tweaks = @(
 	### Require administrator privileges ###
 	"RequireAdmin",
 	"CreateRestorePoint",
-	### External Program Setup
+	
+	### Chris Titus Tech Additions
+	"TitusRegistryTweaks",
 	"InstallTitusProgs", #REQUIRED FOR OTHER PROGRAM INSTALLS!
 	"Install7Zip",
-	"InstallNotepadplusplus",
-	"InstallMediaPlayerClassic",
     "InstallJava",
+	"InstallNotepadplusplus",
+	"InstallIrfanview",
+	"InstallVLC",
+	"InstallBrave",
+	"ChangeDefaultApps",
 
 	### Windows Apps
 	"DebloatAll",
@@ -45,7 +45,7 @@ $tweaks = @(
 	### Privacy Tweaks ###
 	"DisableTelemetry",             # "EnableTelemetry",
 	"DisableWiFiSense",             # "EnableWiFiSense",
-	"DisableSmartScreen",         # "EnableSmartScreen",
+	"DisableSmartScreen",           # "EnableSmartScreen",
 	"DisableWebSearch",             # "EnableWebSearch",
 	"DisableAppSuggestions",        # "EnableAppSuggestions",
 	"DisableActivityHistory",       # "EnableActivityHistory",
@@ -57,67 +57,67 @@ $tweaks = @(
 	"DisableAdvertisingID",         # "EnableAdvertisingID",
 	"DisableCortana",               # "EnableCortana",
 	"DisableErrorReporting",        # "EnableErrorReporting",
-	"SetP2PUpdateLocal",          # "SetP2PUpdateInternet",
+	"SetP2PUpdateLocal",            # "SetP2PUpdateInternet",
 	"DisableDiagTrack",             # "EnableDiagTrack",
 	"DisableWAPPush",               # "EnableWAPPush",
 
 	### Security Tweaks ###
-	"SetUACLow",                  # "SetUACHigh",
+	"SetUACLow",                    # "SetUACHigh",
 	# "EnableSharingMappedDrives",  # "DisableSharingMappedDrives",
-	# "DisableAdminShares",           # "EnableAdminShares",
-	"DisableSMB1",                # "EnableSMB1",
+	# "DisableAdminShares",         # "EnableAdminShares",
+	"DisableSMB1",                  # "EnableSMB1",
 	# "DisableSMBServer",           # "EnableSMBServer",
 	# "DisableLLMNR",               # "EnableLLMNR",
 	"SetCurrentNetworkPrivate",     # "SetCurrentNetworkPublic",
-	"SetUnknownNetworksPrivate",  # "SetUnknownNetworksPublic",
-	"DisableNetDevicesAutoInst",  # "EnableNetDevicesAutoInst",
-	"DisableCtrldFolderAccess",	# "EnableCtrldFolderAccess",
-	# "DisableFirewall",            # "EnableFirewall",
-	#"DisableDefender",             #"EnableDefender",
-	"DisableDefenderCloud",       # "EnableDefenderCloud",
+	"SetUnknownNetworksPrivate",    # "SetUnknownNetworksPublic",
+	"DisableNetDevicesAutoInst",    # "EnableNetDevicesAutoInst",
+	"DisableCtrldFolderAccess",	    # "EnableCtrldFolderAccess",
+	"EnableFirewall",
+	"EnableDefender",
+	"EnableDefenderCloud",
 	"EnableF8BootMenu",             # "DisableF8BootMenu",
-	#"SetDEPOptOut",                 # "SetDEPOptIn",
+	#"SetDEPOptOut",                # "SetDEPOptIn",
 	# "EnableCIMemoryIntegrity",    # "DisableCIMemoryIntegrity",
-	#"DisableScriptHost",            # "EnableScriptHost",
-	#"EnableDotNetStrongCrypto",     # "DisableDotNetStrongCrypto",
-	"DisableMeltdownCompatFlag", # "EnableMeltdownCompatFlag"  
+	#"DisableScriptHost",           # "EnableScriptHost",
+	#"EnableDotNetStrongCrypto",    # "DisableDotNetStrongCrypto",
+	"DisableMeltdownCompatFlag",    # "EnableMeltdownCompatFlag"    
 
 	### Service Tweaks ###
-	"DisableUpdateMSRT",          # "EnableUpdateMSRT",
-	"DisableUpdateDriver",        # "EnableUpdateDriver",
+	"DisableUpdateMSRT",            # "EnableUpdateMSRT",
+	"DisableUpdateDriver",          # "EnableUpdateDriver",
 	"DisableUpdateRestart",         # "EnableUpdateRestart",
-	"DisableHomeGroups",          # "EnableHomeGroups",
+	"DisableHomeGroups",            # "EnableHomeGroups",
 	"DisableSharedExperiences",     # "EnableSharedExperiences",
 	"DisableRemoteAssistance",      # "EnableRemoteAssistance",
 	"EnableRemoteDesktop",          # "DisableRemoteDesktop",
 	"DisableAutoplay",              # "EnableAutoplay",
 	"DisableAutorun",               # "EnableAutorun",
-	"DisableStorageSense",        # "EnableStorageSense",
-	"DisableDefragmentation",     # "EnableDefragmentation",
-	"DisableSuperfetch",          # "EnableSuperfetch",
-	"DisableIndexing",            # "EnableIndexing",
-	"SetBIOSTimeUTC",             # "SetBIOSTimeLocal",
-	"DisableHibernation",		# "EnableHibernation",          # 
-	"EnableSleepButton",		# "DisableSleepButton",         
-	"DisableSleepTimeout",        # "EnableSleepTimeout",
-	# "DisableFastStartup",         # "EnableFastStartup",
+	"DisableStorageSense",          # "EnableStorageSense",
+	"DisableDefragmentation",       # "EnableDefragmentation",
+	"DisableSuperfetch",            # "EnableSuperfetch",
+	"EnableIndexing",
+	"SetBIOSTimeUTC",               # "SetBIOSTimeLocal",
+	"DisableHibernation",		    # "EnableHibernation",          
+	"EnableSleepButton",		    # "DisableSleepButton",         
+	"DisableSleepTimeout",          # "EnableSleepTimeout",
+	"DisableFastStartup",           # "EnableFastStartup",
 
 	### UI Tweaks ###
 	"DisableActionCenter",          # "EnableActionCenter",
-	"DisableLockScreen",            # "EnableLockScreen",
-	"DisableLockScreenRS1",       # "EnableLockScreenRS1",
-	# "HideNetworkFromLockScreen",    # "ShowNetworkOnLockScreen",
-	# "HideShutdownFromLockScreen",   # "ShowShutdownOnLockScreen",
+	"EnableLockScreen",				# "DisableLockScreen",
+	"EnableLockScreenRS1",			# "DisableLockScreenRS1",
+	# "HideNetworkFromLockScreen",  # "ShowNetworkOnLockScreen",
+	# "HideShutdownFromLockScreen", # "ShowShutdownOnLockScreen",
 	"DisableStickyKeys",            # "EnableStickyKeys",
 	"ShowTaskManagerDetails"        # "HideTaskManagerDetails",
 	"ShowFileOperationsDetails",    # "HideFileOperationsDetails",
-	"DisableFileDeleteConfirm",	# "EnableFileDeleteConfirm",    
-	#"HideTaskbarSearch",
-	"ShowTaskbarSearchIcon",      # "ShowTaskbarSearchBox",
+	"DisableFileDeleteConfirm",	    # "EnableFileDeleteConfirm",    
+	"HideTaskbarSearch",
+	#"ShowTaskbarSearchIcon",       # "ShowTaskbarSearchBox",
 	"HideTaskView",                 # "ShowTaskView",
-	# "ShowSmallTaskbarIcons",        # "ShowLargeTaskbarIcons",
-	# "SetTaskbarCombineWhenFull",    # "SetTaskbarCombineNever",     # "SetTaskbarCombineAlways",
-	# "HideTaskbarPeopleIcon",        # "ShowTaskbarPeopleIcon",
+	# "ShowSmallTaskbarIcons",      # "ShowLargeTaskbarIcons",
+	# "SetTaskbarCombineWhenFull",  # "SetTaskbarCombineNever",     # "SetTaskbarCombineAlways",
+	"HideTaskbarPeopleIcon",        # "ShowTaskbarPeopleIcon",
 	"ShowTrayIcons",                # "HideTrayIcons",
 	"DisableSearchAppInStore",      # "EnableSearchAppInStore",
 	"DisableNewAppPrompt",          # "EnableNewAppPrompt",
@@ -130,47 +130,46 @@ $tweaks = @(
 
 	### Explorer UI Tweaks ###
 	"ShowKnownExtensions",          # "HideKnownExtensions",
-	# "ShowHiddenFiles",              # "HideHiddenFiles",
+	"HideHiddenFiles",
 	"HideSyncNotifications"         # "ShowSyncNotifications",
-	# "HideRecentShortcuts",          # "ShowRecentShortcuts",
+	"HideRecentShortcuts",          # "ShowRecentShortcuts",
 	"SetExplorerThisPC",            # "SetExplorerQuickAccess",
-	"HideThisPCFromDesktop",	# "ShowThisPCOnDesktop",
+	"HideThisPCFromDesktop",	    # "ShowThisPCOnDesktop",
 	# "ShowUserFolderOnDesktop",    # "HideUserFolderFromDesktop",
-	# "HideDesktopFromThisPC",        # "ShowDesktopInThisPC",
+	# "HideDesktopFromThisPC",      # "ShowDesktopInThisPC",
 	# "HideDesktopFromExplorer",    # "ShowDesktopInExplorer",
-	# "HideDocumentsFromThisPC",      # "ShowDocumentsInThisPC",
+	# "HideDocumentsFromThisPC",    # "ShowDocumentsInThisPC",
 	# "HideDocumentsFromExplorer",  # "ShowDocumentsInExplorer",
-	# "HideDownloadsFromThisPC",      # "ShowDownloadsInThisPC",
+	# "HideDownloadsFromThisPC",    # "ShowDownloadsInThisPC",
 	# "HideDownloadsFromExplorer",  # "ShowDownloadsInExplorer",
 	"HideMusicFromThisPC",          # "ShowMusicInThisPC",
-	"HideMusicFromExplorer",      # "ShowMusicInExplorer",
-	# "HidePicturesFromThisPC",       # "ShowPicturesInThisPC",
+	"HideMusicFromExplorer",        # "ShowMusicInExplorer",
+	# "HidePicturesFromThisPC",     # "ShowPicturesInThisPC",
 	# "HidePicturesFromExplorer",   # "ShowPicturesInExplorer",
 	"HideVideosFromThisPC",         # "ShowVideosInThisPC",
-	"HideVideosFromExplorer",     # "ShowVideosInExplorer",
+	"HideVideosFromExplorer",       # "ShowVideosInExplorer",
 	"Hide3DObjectsFromThisPC",      # "Show3DObjectsInThisPC",
-	"Hide3DObjectsFromExplorer",  # "Show3DObjectsInExplorer",
+	"Hide3DObjectsFromExplorer",    # "Show3DObjectsInExplorer",
 	# "DisableThumbnails",          # "EnableThumbnails",
-	# "DisableThumbsDB",              # "EnableThumbsDB",
+	# "DisableThumbsDB",            # "EnableThumbsDB",
 
 	### Application Tweaks ###
-	"DisableOneDrive",              # "EnableOneDrive",
-	"UninstallOneDrive",            # "InstallOneDrive",
+    # "EnableOneDrive",
 	"UninstallMsftBloat",           # "InstallMsftBloat",
 	"UninstallThirdPartyBloat",     # "InstallThirdPartyBloat",
 	# "UninstallWindowsStore",      # "InstallWindowsStore",
-	# "DisableXboxFeatures",          # "EnableXboxFeatures",
+	# "DisableXboxFeatures",        # "EnableXboxFeatures",
 	"DisableAdobeFlash",            # "EnableAdobeFlash",
-	"InstallMediaPlayer", 		# "UninstallMediaPlayer",
-	"UninstallInternetExplorer",  # "InstallInternetExplorer",
-	"UninstallWorkFolders",       # "InstallWorkFolders",
-	"InstallLinuxSubsystem",      # "UninstallLinuxSubsystem",
+	"InstallMediaPlayer", 		    # "UninstallMediaPlayer",
+	"UninstallInternetExplorer",    # "InstallInternetExplorer",
+	"UninstallWorkFolders",         # "InstallWorkFolders",
+	"InstallLinuxSubsystem",        # "UninstallLinuxSubsystem",
 	# "InstallHyperV",              # "UninstallHyperV",
 	"SetPhotoViewerAssociation",    # "UnsetPhotoViewerAssociation",
 	"AddPhotoViewerOpenWith",       # "RemovePhotoViewerOpenWith",
-	"InstallPDFPrinter",		# "UninstallPDFPrinter",
-	# "UninstallXPSPrinter",          # "InstallXPSPrinter",
-	# "RemoveFaxPrinter",             # "AddFaxPrinter",
+	"InstallPDFPrinter"		        # "UninstallPDFPrinter",
+	# "UninstallXPSPrinter",        # "InstallXPSPrinter",
+	# "RemoveFaxPrinter",           # "AddFaxPrinter",
 
 	### Server Specific Tweaks ###
 	# "HideServerManagerOnLogin",   # "ShowServerManagerOnLogin",
@@ -181,24 +180,59 @@ $tweaks = @(
 	# "EnableAudio",                # "DisableAudio",
 
 	### Unpinning ###
-	"UnpinStartMenuTiles",
+	#"UnpinStartMenuTiles",
 	#"UnpinTaskbarIcons",
 
-    ### Enable Clipboard History ###
-    "EnableClipboardHistory",
-
-    ### Disable Clipboard History ###
-    #"DisableClipboardHistory",
-
 	### Auxiliary Functions ###
-	"WaitForKey"
-	"Restart"
 )
 
 #########
-# Recommended Titus Programs
+# Recommended Titus Customizations
 #########
 
+function Show-Choco-Menu {
+    param(
+        [Parameter(Mandatory)]
+        [ValidateNotNullOrEmpty()]
+        [string]$Title,
+    
+        [Parameter(Mandatory)]
+        [ValidateNotNullOrEmpty()]
+        [string]$ChocoInstall
+    )
+   
+ do{
+    Clear-Host
+    Write-Host "================ $Title ================"
+    Write-Host "Y: Press 'Y' to do this."
+    Write-Host "2: Press 'N' to skip this."
+	Write-Host "Q: Press 'Q' to stop the entire script."
+    $selection = Read-Host "Please make a selection"
+    switch ($selection)
+    {
+    'y' { choco install $ChocoInstall -y }
+    'n' { Break }
+    'q' { Exit  }
+    }
+ }
+ until ($selection -match "y" -or $selection -match "n" -or $selection -match "q")
+}
+
+Function TitusRegistryTweaks {
+	Write-Output "Improving Windows Update to delay Feature updates and only install Security Updates"
+	### Fix Windows Update to delay feature updates and only update at certain times
+	$UpdatesPath = "HKLM:\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings"
+	If (!(Get-ItemProperty $UpdatesPath  BranchReadinessLevel)) { New-ItemProperty -Path $UpdatesPath -Name "BranchReadinessLevel" -Type DWord -Value 20 }
+	Set-ItemProperty -Path $UpdatesPath -Name "BranchReadinessLevel" -Type DWord -Value 20
+	If (!(Get-ItemProperty $UpdatesPath  DeferFeatureUpdatesPeriodInDays)) { New-ItemProperty -Path $UpdatesPath -Name "DeferFeatureUpdatesPeriodInDays" -Type DWord -Value 180	}
+	Set-ItemProperty -Path $UpdatesPath -Name "DeferFeatureUpdatesPeriodInDays" -Type DWord -Value 365
+	If (!(Get-ItemProperty $UpdatesPath  DeferQualityUpdatesPeriodInDays)) { New-ItemProperty -Path $UpdatesPath -Name "DeferQualityUpdatesPeriodInDays" -Type DWord -Value 4 }
+	Set-ItemProperty -Path $UpdatesPath -Name "DeferQualityUpdatesPeriodInDays" -Type DWord -Value 4
+	If (!(Get-ItemProperty $UpdatesPath  ActiveHoursEnd)) { New-ItemProperty -Path $UpdatesPath -Name "ActiveHoursEnd" -Type DWord -Value 2	}
+	Set-ItemProperty -Path $UpdatesPath -Name "ActiveHoursEnd" -Type DWord -Value 2
+	If (!(Get-ItemProperty $UpdatesPath  DeferQualityUpdatesPeriodInDays)) { New-ItemProperty -Path $UpdatesPath -Name "ActiveHoursStart" -Type DWord -Value 8 }
+	Set-ItemProperty -Path $UpdatesPath -Name "ActiveHoursStart" -Type DWord -Value 8
+}
 Function InstallTitusProgs {
 	Write-Output "Installing Chocolatey"
 	Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
@@ -210,24 +244,50 @@ Function InstallTitusProgs {
 	./OOSU10.exe ooshutup10.cfg /quiet
 }
 
-Function InstallJava {
-	Write-Output "Installing Java"
-	choco install jre8 -y
+Function InstallBrave {
+	do{
+        Clear-Host
+        Write-Host "================ Do You Want to Install Brave Browser? ================"
+        Write-Host "Y: Press 'Y' to do this."
+        Write-Host "2: Press 'N' to skip this."
+	    Write-Host "Q: Press 'Q' to stop the entire script."
+        $selection = Read-Host "Please make a selection"
+        switch ($selection){
+        'y' { 
+		        Invoke-WebRequest -Uri "https://laptop-updates.brave.com/download/CHR253" -OutFile $env:USERPROFILE\Downloads\brave.exe
+		        ~/Downloads/brave.exe
+	    }
+        'n' { Break }
+        'q' { Exit  }
+       }
+    }
+    until ($selection -match "y" -or $selection -match "n" -or $selection -match "q")
+	
 }
-
 Function Install7Zip {
-	Write-Output "Installing 7-Zip"
-	choco install 7zip -y
+	Show-Choco-Menu -Title "Do you want to install 7-Zip?" -ChocoInstall "7zip"
 }
 
 Function InstallNotepadplusplus {
-	Write-Output "Installing Notepad++"
-	choco install notepadplusplus -y
+	Show-Choco-Menu -Title "Do you want to install Notepad++?" -ChocoInstall "notepadplusplus"
 }
 
-Function InstallMediaPlayerClassic {
-	Write-Output "Installing Media Player Classic (VLC Alternative)"
-	choco install mpc-hc -y
+Function InstallVLC {
+	Show-Choco-Menu -Title "Do you want to install VLC?" -ChocoInstall "vlc"
+}
+
+Function InstallIrfanview {
+	Show-Choco-Menu -Title "Do you want to install Irfanview?" -ChocoInstall "irfanview"
+}
+
+Function InstallJava {
+	Show-Choco-Menu -Title "Do you want to install Java (Needed for some programs to work)" -ChocoInstall "jre8"
+}
+
+Function ChangeDefaultApps {
+	Write-Output "Setting Default Programs - Notepad++ Brave VLC IrFanView"
+	Start-BitsTransfer -Source "https://raw.githubusercontent.com/ChrisTitusTech/win10script/master/MyDefaultAppAssociations.xml" -Destination $HOME\Downloads\MyDefaultAppAssociations.xml
+	dism /online /Import-DefaultAppAssociations:"%UserProfile%\Downloads\MyDefaultAppAssociations.xml"
 }
 
 ##########
@@ -378,7 +438,6 @@ Function EnableActivityHistory {
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "PublishUserActivities" -ErrorAction SilentlyContinue
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "UploadUserActivities" -ErrorAction SilentlyContinue
 }
-
 
 # Disable Background application access - ie. if apps can download or update when they aren't used - Cortana is excluded as its inclusion breaks start menu search
 Function DisableBackgroundApps {
@@ -855,15 +914,7 @@ Function DisableMeltdownCompatFlag {
 	Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\QualityCompat" -Name "cadca5fe-87d3-4b96-b7fb-a231484277cc" -ErrorAction SilentlyContinue
 }
 
-Function EnableClipboardHistory{
-	Write-Output "Enabling Clipboard History"
-    Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "AllowClipboardHistory" -ErrorAction SilentlyContinue
-}
 
-Function DisableClipboardHistory{
-	Write-Output "Disabling Clipboard History"
-    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" -Name "AllowClipboardHistory" -Type DWord -Value 0
-}
 
 ##########
 # Service Tweaks
@@ -1893,11 +1944,27 @@ Function EnableThumbsDB {
 
 # Disable OneDrive
 Function DisableOneDrive {
-	Write-Output "Disabling OneDrive..."
-	If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive")) {
-		New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive" | Out-Null
-	}
-	Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive" -Name "DisableFileSyncNGSC" -Type DWord -Value 1
+	do{
+        Clear-Host
+        Write-Host "================ Do You Want to disable OneDrive? ================"
+        Write-Host "Y: Press 'Y' to do this."
+        Write-Host "2: Press 'N' to skip this."
+	    Write-Host "Q: Press 'Q' to stop the entire script."
+        $selection = Read-Host "Please make a selection"
+        switch ($selection){
+        'y' { 
+              Write-Output "Disabling OneDrive..."
+	          If (!(Test-Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive")) {
+		            New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive" | Out-Null
+	          }
+	          Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive" -Name "DisableFileSyncNGSC" -Type DWord -Value 1
+	    }
+        'n' { Break }
+        'q' { Exit  }
+       }
+    }
+    until ($selection -match "y" -or $selection -match "n" -or $selection -match "q")
+
 }
 
 # Enable OneDrive
@@ -1908,26 +1975,42 @@ Function EnableOneDrive {
 
 # Uninstall OneDrive - Not applicable to Server
 Function UninstallOneDrive {
-	Write-Output "Uninstalling OneDrive..."
-	Stop-Process -Name "OneDrive" -ErrorAction SilentlyContinue
-	Start-Sleep -s 2
-	$onedrive = "$env:SYSTEMROOT\SysWOW64\OneDriveSetup.exe"
-	If (!(Test-Path $onedrive)) {
-		$onedrive = "$env:SYSTEMROOT\System32\OneDriveSetup.exe"
-	}
-	Start-Process $onedrive "/uninstall" -NoNewWindow -Wait
-	Start-Sleep -s 2
-	Stop-Process -Name "explorer" -ErrorAction SilentlyContinue
-	Start-Sleep -s 2
-	Remove-Item -Path "$env:USERPROFILE\OneDrive" -Force -Recurse -ErrorAction SilentlyContinue
-	Remove-Item -Path "$env:LOCALAPPDATA\Microsoft\OneDrive" -Force -Recurse -ErrorAction SilentlyContinue
-	Remove-Item -Path "$env:PROGRAMDATA\Microsoft OneDrive" -Force -Recurse -ErrorAction SilentlyContinue
-	Remove-Item -Path "$env:SYSTEMDRIVE\OneDriveTemp" -Force -Recurse -ErrorAction SilentlyContinue
-	If (!(Test-Path "HKCR:")) {
-		New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
-	}
-	Remove-Item -Path "HKCR:\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" -Recurse -ErrorAction SilentlyContinue
-	Remove-Item -Path "HKCR:\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" -Recurse -ErrorAction SilentlyContinue
+    	do{
+        Clear-Host
+        Write-Host "================ Do You Want to unsinstall OneDrive? ================"
+        Write-Host "Y: Press 'Y' to do this."
+        Write-Host "2: Press 'N' to skip this."
+	    Write-Host "Q: Press 'Q' to stop the entire script."
+        $selection = Read-Host "Please make a selection"
+        switch ($selection){
+        'y' { 
+                Write-Output "Uninstalling OneDrive..."
+                Stop-Process -Name "OneDrive" -ErrorAction SilentlyContinue
+                Start-Sleep -s 2
+                $onedrive = "$env:SYSTEMROOT\SysWOW64\OneDriveSetup.exe"
+                If (!(Test-Path $onedrive)) {
+                    $onedrive = "$env:SYSTEMROOT\System32\OneDriveSetup.exe"
+                }
+                Start-Process $onedrive "/uninstall" -NoNewWindow -Wait
+                Start-Sleep -s 2
+                Stop-Process -Name "explorer" -ErrorAction SilentlyContinue
+                Start-Sleep -s 2
+                Remove-Item -Path "$env:USERPROFILE\OneDrive" -Force -Recurse -ErrorAction SilentlyContinue
+                Remove-Item -Path "$env:LOCALAPPDATA\Microsoft\OneDrive" -Force -Recurse -ErrorAction SilentlyContinue
+                Remove-Item -Path "$env:PROGRAMDATA\Microsoft OneDrive" -Force -Recurse -ErrorAction SilentlyContinue
+                Remove-Item -Path "$env:SYSTEMDRIVE\OneDriveTemp" -Force -Recurse -ErrorAction SilentlyContinue
+                If (!(Test-Path "HKCR:")) {
+                    New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
+                }
+                Remove-Item -Path "HKCR:\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" -Recurse -ErrorAction SilentlyContinue
+                Remove-Item -Path "HKCR:\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" -Recurse -ErrorAction SilentlyContinue
+	    }
+        'n' { Break }
+        'q' { Exit  }
+       }
+    }
+    until ($selection -match "y" -or $selection -match "n" -or $selection -match "q")
+	
 }
 
 # Install OneDrive - Not applicable to Server
@@ -1956,12 +2039,9 @@ Function UninstallMsftBloat {
 	Get-AppxPackage "Microsoft.Getstarted" | Remove-AppxPackage
 	Get-AppxPackage "Microsoft.Messaging" | Remove-AppxPackage
 	Get-AppxPackage "Microsoft.Microsoft3DViewer" | Remove-AppxPackage
-	Get-AppxPackage "Microsoft.MicrosoftOfficeHub" | Remove-AppxPackage
 	Get-AppxPackage "Microsoft.MicrosoftPowerBIForWindows" | Remove-AppxPackage
 	Get-AppxPackage "Microsoft.MicrosoftSolitaireCollection" | Remove-AppxPackage
 	Get-AppxPackage "Microsoft.MicrosoftStickyNotes" | Remove-AppxPackage
-	Get-AppxPackage "Microsoft.MinecraftUWP" | Remove-AppxPackage
-	Get-AppxPackage "Microsoft.MSPaint" | Remove-AppxPackage
 	Get-AppxPackage "Microsoft.NetworkSpeedTest" | Remove-AppxPackage
 	Get-AppxPackage "Microsoft.Office.OneNote" | Remove-AppxPackage
 	Get-AppxPackage "Microsoft.Office.Sway" | Remove-AppxPackage
@@ -1969,7 +2049,6 @@ Function UninstallMsftBloat {
 	Get-AppxPackage "Microsoft.People" | Remove-AppxPackage
 	Get-AppxPackage "Microsoft.Print3D" | Remove-AppxPackage
 	Get-AppxPackage "Microsoft.RemoteDesktop" | Remove-AppxPackage
-	Get-AppxPackage "Microsoft.SkypeApp" | Remove-AppxPackage
 	Get-AppxPackage "Microsoft.Wallet" | Remove-AppxPackage
 	Get-AppxPackage "Microsoft.WindowsAlarms" | Remove-AppxPackage
 	Get-AppxPackage "Microsoft.WindowsCamera" | Remove-AppxPackage
@@ -1999,14 +2078,12 @@ Function InstallMsftBloat {
 	Get-AppxPackage -AllUsers "Microsoft.Getstarted" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 	Get-AppxPackage -AllUsers "Microsoft.Messaging" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 	Get-AppxPackage -AllUsers "Microsoft.Microsoft3DViewer" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.MicrosoftOfficeHub" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 	Get-AppxPackage -AllUsers "Microsoft.MicrosoftPowerBIForWindows" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 	Get-AppxPackage -AllUsers "Microsoft.MicrosoftSolitaireCollection" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 	Get-AppxPackage -AllUsers "Microsoft.MicrosoftStickyNotes" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 	Get-AppxPackage -AllUsers "Microsoft.MinecraftUWP" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 	Get-AppxPackage -AllUsers "Microsoft.MSPaint" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 	Get-AppxPackage -AllUsers "Microsoft.NetworkSpeedTest" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
-	Get-AppxPackage -AllUsers "Microsoft.Office.OneNote" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 	Get-AppxPackage -AllUsers "Microsoft.Office.Sway" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 	Get-AppxPackage -AllUsers "Microsoft.OneConnect" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 	Get-AppxPackage -AllUsers "Microsoft.People" | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
@@ -2481,7 +2558,7 @@ Function Restart {
 ###########
 
 Function EnableDarkMode {
-	Write-Output "Enabling Dark Mode"
+  Write-Output "Enabling Dark Mode"
 	Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name AppsUseLightTheme -Value 0
 }
 
@@ -2519,7 +2596,7 @@ Function Stop-EdgePDF {
     If (!(Get-ItemProperty $NoWithList  NoStaticDefaultVerb)) {
         New-ItemProperty $NoWithList  NoStaticDefaultVerb 
     }
-    
+            
     #Appends an underscore '_' to the Registry key for Edge
     $Edge = "HKCR:\AppXd4nrz8ff68srnhf9t5a8sbjyar1cr723_"
     If (Test-Path $Edge) {
@@ -2528,9 +2605,9 @@ Function Stop-EdgePDF {
 }
 
 Function CreateRestorePoint {
-	Write-Output "Creating Restore Point incase something bad happens"
-	Enable-ComputerRestore -Drive "C:\"
-	Checkpoint-Computer -Description "RestorePoint1" -RestorePointType "MODIFY_SETTINGS"
+  Write-Output "Creating Restore Point incase something bad happens"
+  Enable-ComputerRestore -Drive "C:\"
+  Checkpoint-Computer -Description "RestorePoint1" -RestorePointType "MODIFY_SETTINGS"
 }
 
 Function DebloatAll {
@@ -2580,6 +2657,7 @@ Function DebloatAll {
         "*Sway*"
         "*Speed Test*"
         "*Dolby*"
+             
         #Optional: Typically not removed but you can if you need to for some reason
         #"*Microsoft.Advertising.Xaml_10.1712.5.0_x64__8wekyb3d8bbwe*"
         #"*Microsoft.Advertising.Xaml_10.1712.5.0_x86__8wekyb3d8bbwe*"
